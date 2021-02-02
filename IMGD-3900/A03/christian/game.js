@@ -1,5 +1,20 @@
-// game.js for Perlenspiel 3.3
-// The following comment lines are for JSHint. You can remove them if you don't use JSHint.
+// Christian Orion Adler
+// I've never done this before, let alone coding. 
+
+//MOD 1: Changed the maze so it's only one direction]
+//MOD 2: Reordered the "gold" pieces so that they're exactly 3 seconds apart.
+//MOD 3: Background is now black
+//MOD 4: Path is RED
+//MOD 5: Character is White
+//MOD 6: "Gold" pieces are Green
+//MOD 7: Changed SOUND_OPEN to "fx_uhoh"
+//MOD 8: Changed SOUND_GOLD to "fx_powerup2"
+//MOD 9: Changed the Top Text to "Sludged thru 5 pieces of digested food!"
+//MOD 10: Changed the Winning text to "You're covered in 10 pieces of digested food" 
+//MOD 11: 				PS.glyph( exitX, exitY, "O" );
+
+
+
 /* jshint browser : true, devel : true, esversion : 6, freeze : true */
 /* globals PS : true */
 
@@ -19,17 +34,17 @@ const G = ( function () {
 	const PLANE_FLOOR = 0; // z-plane of floor
 	const PLANE_ACTOR = 1; // z-plane of actor
 
-	const COLOR_BG = PS.COLOR_GRAY_DARK; // background color
+	const COLOR_BG = PS.COLOR_BLACK; // background color
 	const COLOR_WALL = PS.COLOR_BLACK; // wall color
-	const COLOR_FLOOR = PS.COLOR_GRAY; // floor color
-	const COLOR_ACTOR = PS.COLOR_GREEN; // actor color
-	const COLOR_GOLD = PS.COLOR_YELLOW; // gold color
-	const COLOR_EXIT = PS.COLOR_BLUE; // exit color
+	const COLOR_FLOOR = PS.COLOR_RED; // floor color
+	const COLOR_ACTOR = PS.COLOR_WHITE; // actor color
+	const COLOR_GOLD = PS.COLOR_GREEN; // gold color
+	const COLOR_EXIT = PS.COLOR_PURPLE; // exit color
 
 	const SOUND_FLOOR = "fx_click"; // touch floor sound
 	const SOUND_WALL = "fx_hoot"; // touch wall sound
-	const SOUND_GOLD = "fx_coin1"; // take coin sound
-	const SOUND_OPEN = "fx_powerup8"; // open exit sound
+	const SOUND_GOLD = "fx_powerup2"; // take coin sound
+	const SOUND_OPEN = "fx_uhoh"; // open exit sound
 	const SOUND_WIN = "fx_tada"; // win sound
 	const SOUND_ERROR = "fx_uhoh"; // error sound
 
@@ -61,25 +76,25 @@ const G = ( function () {
 		pixelSize: 1, // must be present!
 		data: [
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 1, 1, 1, 1, 1, 2, 1, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0,
-			0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0,
-			0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0,
-			0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
-			0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
-			0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
-			0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 2, 1, 1, 0, 0, 1, 0, 0, 1, 0,
-			0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-			0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-			0, 1, 0, 0, 1, 2, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0,
-			0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-			0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 2, 0,
-			0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
-			0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 2, 0, 0, 1, 0, 0, 1, 0,
-			0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0,
-			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
-			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
-			0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0,
+			0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+			0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+			0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+			0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+			0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+			0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+			0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		]
 	};
@@ -148,15 +163,15 @@ const G = ( function () {
 				exit_ready = true;
 				PS.color( exitX, exitY, COLOR_EXIT ); // show the exit
 				PS.glyphColor( exitX, exitY, PS.COLOR_WHITE ); // mark with white X
-				PS.glyph( exitX, exitY, "X" );
-				PS.statusText( "Found " + gold_found + " gold! Exit open!" );
+				PS.glyph( exitX, exitY, "O" );
+				PS.statusText( "You're covered in" + gold_found + " pieces of digested food!" );
 				PS.audioPlay( SOUND_OPEN );
 			}
 
 			// Otherwise just update score
 
 			else {
-				PS.statusText( "Found " + gold_found + " gold!" );
+				PS.statusText( "Sludged through " + gold_found + " pieces of digested food!" );
 				PS.audioPlay( SOUND_GOLD );
 			}
 		}
@@ -165,7 +180,7 @@ const G = ( function () {
 
 		else if ( exit_ready && ( actorX === exitX ) && ( actorY === exitY ) ) {
 			PS.timerStop( id_timer ); // stop movement timer
-			PS.statusText( "You escaped with " + gold_found + " gold!" );
+			PS.statusText( "The snake pooped you out with lots of digested food on you!" );
 			PS.audioPlay( SOUND_WIN );
 			won = true;
 			return;
