@@ -236,6 +236,7 @@ const TKID = ( function () {
             doMove : function(current) {
                 if (current.data === null || current.data === undefined) {
                     current.data = 0;
+                    //TODO hannuh fireball noise
                 }
                 let oldPos = addPos(playerPos, {x:0, y:current.data}),
                     newPos = addPos(playerPos, {x:0, y:--current.data}),
@@ -380,6 +381,10 @@ const TKID = ( function () {
             }
             score += ENEMY_POINTS;
             updateStatusLine();
+
+            //Spawn enemy
+            //TODO hannuh
+            //addEnemy(makeRook({x:randomX, y:randomY}));
         }
     }
 
@@ -523,7 +528,7 @@ const TKID = ( function () {
             PS.color(Math.floor(GRID_SIZE/2), Math.floor(GRID_SIZE/2), COLOR_PLAYER);
 
             addEnemy(makeRook({x:1, y:14}));
-            addEnemy(makeGenericEnemy({x:8, y:1}));
+            //addEnemy(makeGenericEnemy({x:8, y:1}));
             playerCombos.push(makeFireballCombo());
 
             updateStatusLine();
