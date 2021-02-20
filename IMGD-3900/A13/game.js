@@ -920,6 +920,7 @@ const TKID = ( function () {
 
                     if (mapData[newPos.y][newPos.x] === EXIT) {
                         score+=LEVEL_POINTS;
+                        updateStatusLine(); //TODO comment this out if the game breaks, only this line has not been tested
                         generateMap();
                     } else {
 
