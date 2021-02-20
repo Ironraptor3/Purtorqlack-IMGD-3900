@@ -55,18 +55,21 @@ const TKID = ( function () {
     const COLOR_OVERLAY = {r:100,g:100,b:100};
     const ALPHA_OVERLAY = 128;
     const COLOR_PLAYER = {r:0,g:50,b:255};
-    const COLOR_INDICATOR_P = {r:0,g:100,b:255};
-    const COLOR_INDICATOR_E = {r:255,g:25,b:0};
     const ALPHA_INDICATOR = 128;
 
     const COLOR_WALL = {r:0,g:0,b:0};
     const COLOR_FLOOR = {r:255,g:255,b:255};
     const ALPHA_ENVIR = 255;
 
+    const COLOR_EXIT = {r:0, g:255, b:0}
+    const GLYPH_EXIT = 'E';
+
+    const EXIT = 2;
     const WALL = 1;
     const FLOOR = 0;
 
     const ENEMY_POINTS = 10;
+    const LEVEL_POINTS = 50;
     const SCREEN_MINCOUNT = 2;
     const TICKS_ANIMATION = 5;
 
@@ -74,6 +77,10 @@ const TKID = ( function () {
     const LEVEL_SIZE_MAX = 8;
     const ROOM_DIVISION_CHANCE = .2;
     const ROOM_SIZE = 15;
+
+    const ENEMY_MIN = 1;
+    const ENEMY_MAX = 2;
+    const ENEMY_SCALAR = 0.2;
 
     let mapData = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -92,7 +99,7 @@ const TKID = ( function () {
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    ];
+    ]; //No longer needed
 
     let playerTurn = true;
 
@@ -100,6 +107,7 @@ const TKID = ( function () {
     let playerCombos = [];
     let currentCombos = []; //Combos the player is currently attempting
 
+    let enemyList;
     let enemies = [];
 
     let animateEnemy = 0; //Index of current enemy
@@ -125,7 +133,7 @@ const TKID = ( function () {
     const generateMap = function() {
 
         //Make shape
-        let maxDim = (level*LEVEL_SIZE_SCALAR) + 2;
+        let maxDim = Math.floor(level*LEVEL_SIZE_SCALAR) + 2;
         if (maxDim > LEVEL_SIZE_MAX) {
             maxDim = LEVEL_SIZE_MAX;
         }
@@ -146,11 +154,12 @@ const TKID = ( function () {
         let heads = [{r:0, c:0}];
         let lastRoom = heads[0];
 
+        //Modified breadth first search
         while (heads.length > 0) {
             for (let h = 0; h < heads.length; ++h) {
-                let head = heads[h], start = Math.floor(4*Math.random()),
+                let head = heads[h], start = Math.floor(4*Math.random()), //choose a random direction
                     dir = start, found = 0,
-                    split = (head.r === 0 && head.c === 0 && ROOM_DIVISION_CHANCE>0) || Math.random() < ROOM_DIVISION_CHANCE;
+                    split = (head.r === 0 && head.c === 0 && ROOM_DIVISION_CHANCE>0) || Math.random() < ROOM_DIVISION_CHANCE; //Split chance
                 do {
                     let nr = head.r + directions[dir].r, nc = head.c + directions[dir].c;
                     if (nr >= 0 && nr < maxDim && nc >= 0 && nc < maxDim
@@ -208,7 +217,7 @@ const TKID = ( function () {
                 }
                 str += "|";
             }
-            console.log(str+'\n');
+            //console.log(str+'\n');
         }
 
 
@@ -235,12 +244,37 @@ const TKID = ( function () {
             }
         }
 
-        //TODO post processing terrain here
+        const ROOM_VAR = ROOM_SIZE-2;
+
+        //Assignments
+        mapData = data;
+        playerPos = {x: Math.floor(ROOM_SIZE/2), y:Math.floor(ROOM_SIZE/2)};
+        ++level;
+
+        //post processing
+
+        //Add exit
+        mapData[lastRoom.r*ROOM_SIZE + Math.floor(Math.random()*ROOM_VAR) + 1]
+            [lastRoom.c*ROOM_SIZE + Math.floor(Math.random()*ROOM_VAR) + 1] = EXIT;
 
         //Place enemies
+        enemies = [];
+        for (let roomRow = 1; roomRow < maxDim; ++roomRow) {
+            for (let roomCol = 1; roomCol < maxDim; ++roomCol) {
+                if (visited[roomRow][roomCol] === true) {
+                    let numEnemies = Math.floor(Math.random()*(ENEMY_MAX+(level*ENEMY_SCALAR))) + ENEMY_MIN;
+                    for (let e = 0; e < numEnemies; ++e) {
+                        let spawn = {x:roomCol*ROOM_SIZE+(Math.floor(Math.random()*(ROOM_SIZE-2)))+1,
+                                     y:roomRow*ROOM_SIZE+(Math.floor(Math.random()*(ROOM_SIZE-2)))+1};
+                        if (mapData[spawn.y][spawn.x] === FLOOR) {
+                            addEnemy(enemyList[Math.floor(enemyList.length*Math.random())](spawn));
+                        }
+                    }
+                }
+            }
+        }
 
         //Output debugging
-
         /*
         for (let i = 0; i < maxDimRoom; ++i) {
             let str = "";
@@ -250,12 +284,6 @@ const TKID = ( function () {
             console.log(str+'\n');
         }
          */
-
-        //Assign mapdata
-
-        mapData = data;
-        playerPos = {x: Math.floor(ROOM_SIZE/2), y:Math.floor(ROOM_SIZE/2)};
-        ++level;
     }
 
     const generateHelper = function(directions, template, index, roomRow, roomCol, dir) {
@@ -288,7 +316,6 @@ const TKID = ( function () {
     const makeGenericCombo = function() {
         return {
             moves: [],
-            color: COLOR_INDICATOR_P,
             getThreat : function(current) {
                 let threat = [];
                 return threat;
@@ -306,21 +333,60 @@ const TKID = ( function () {
             glyph:'P',
             screenCount: 0,
             data:null,
+            dir: Math.random()<0.5?-1:1,
             getThreat : function() {
                 let threat = [];
                 for (let i = -1; i <= 1; ++i) {
-                    threat.push(addPos(this.pos, {x:i,y:1}));
+                    let dest = addPos(this.pos, {x:i,y:this.dir});
+                    if (!oobm(dest) && mapData[dest.y][dest.x] === FLOOR) {
+                        threat.push(dest);
+                    }
                 }
                 return threat;
             },
             doMove : function() {
-                if (pos.y < playerPos.y) {
-                    let target, dx = playerPos.x - this.pos.x;
-                    if (Math.abs(dx) <= 1) {
-                        target = addPos(this.pos, {x:dx, y:1});
+                let dy = playerPos.y - this.pos.y;
+                if (Math.sign(dy) === this.dir) {
+                    let target;
+                    if (Math.abs(dy) === 1 && Math.abs(playerPos.x - this.pos.x) <= 1) {
+                        target = playerPos;
                     }
                     else {
-                        target = addPos(this.pos, {x:0, y:1});
+                        target = addPos(this.pos, {x:0, y:this.dir});
+                    }
+                    moveEnemy(this, target);
+                }
+                return false; //Done
+            }
+        };
+    }
+    const makePawnH = function(pos) {
+        return {
+            pos:pos,
+            color:PS.COLOR_RED,
+            glyph:'p',
+            screenCount: 0,
+            data:null,
+            dir: Math.random()<0.5?-1:1,
+            getThreat : function() {
+                let threat = [];
+                for (let i = -1; i <= 1; ++i) {
+                    let dest = addPos(this.pos, {x:this.dir,y:i});
+                    if (!oobm(dest) && mapData[dest.y][dest.x] === FLOOR) {
+                        threat.push(dest);
+                    }
+                }
+                return threat;
+            },
+            doMove : function() {
+                let dx = playerPos.x - this.pos.x;
+                if (Math.sign(dx) === this.dir) {
+                    let target;
+                    if (Math.abs(dx) === 1 && Math.abs(playerPos.y - this.pos.y) <= 1) {
+                        target = playerPos;
+                    }
+                    else {
+                        target = addPos(this.pos, {x:this.dir, y:0});
                     }
                     moveEnemy(this, target);
                 }
@@ -331,16 +397,15 @@ const TKID = ( function () {
     const makeRook = function(pos) {
         return {
             pos:pos,
-            color:PS.COLOR_RED,
+            color:PS.COLOR_ORANGE,
             glyph:'R',
             screenCount: 0,
-            data:null, //TODO pathfinding
+            data:null,
             getThreat : function() {
-                let threat = [];
-                for (let i = -GRID_SIZE; i < GRID_SIZE; i++) { //TODO radiate outwards and discriminate walls/enemies
-                    threat.push(addPos(this.pos, {x:i, y:0}));
-                    threat.push(addPos(this.pos, {x:0, y:i}));
-                }
+                let threat = getThreatRay(this.pos, {x:1, y:0});
+                threat = threat.concat(getThreatRay(this.pos, {x:-1, y:0}));
+                threat = threat.concat(getThreatRay(this.pos, {x:0, y:1}));
+                threat = threat.concat(getThreatRay(this.pos, {x:-0, y:-1}));
                 return threat;
             },
             doMove : function() {
@@ -378,22 +443,110 @@ const TKID = ( function () {
         };
     }
 
+    const makeKnight = function(pos) {
+        return {
+            pos:pos,
+            color:{r:140,g:70,b:10},
+            glyph:'K',
+            screenCount: 0,
+            data:null,
+            getThreat : function() {
+                return getKnightMoves(this.pos);
+            },
+            doMove : function() {
+                let moves = getKnightMoves(this.pos),
+                    selected;
+
+                if (moves.length === 0) {
+                    return false;
+                }
+                else {
+                    for (let i = 0; i < moves.length; ++i) {
+                        let move = moves[i];
+                        if (equalPos(move, playerPos)) {
+                            selected = move;
+                            break;
+                        }
+                    }
+                    if (!selected) {
+                        selected = moves[Math.floor(Math.random()*moves.length)];
+                    }
+                    moveEnemy(this, selected);
+                    return false;
+                }
+            }
+        };
+    }
+
+    const getKnightMoves = function(pos) {
+        let moves =  [
+            addPos(pos, {x:2, y:1}),
+            addPos(pos, {x:2, y:-1}),
+            addPos(pos, {x:-2, y:1}),
+            addPos(pos, {x:-2, y:-1}),
+            addPos(pos, {x:1, y:2}),
+            addPos(pos, {x:-1, y:2}),
+            addPos(pos, {x:1, y:-2}),
+            addPos(pos, {x:-1, y:-2}),
+        ], result = [];
+        console.log(moves);
+        for (let i = 0; i < moves.length; ++i) {
+            let move = moves[i];
+            if (!oobm(move) && mapData[move.y][move.x] === FLOOR) {
+                result.push(move);
+            }
+        }
+        return result;
+    }
+
+    const makeBishop = function(pos) {
+        return {
+            pos:pos,
+            color:{r:127, g:0, b:127},
+            glyph:'B',
+            screenCount: 0,
+            data:null,
+            getThreat : function() {
+                let threat = getThreatRay(this.pos, {x:1, y:1});
+                threat = threat.concat(getThreatRay(this.pos, {x:-1, y:1}));
+                threat = threat.concat(getThreatRay(this.pos, {x:1, y:-1}));
+                threat = threat.concat(getThreatRay(this.pos, {x:-1, y:-1}));
+                return threat;
+            },
+            doMove : function() {
+                let dPos = subPos(playerPos, this.pos);
+                if (this.data === undefined || this.data === null) {
+                    //If player on line -> try kill:
+                    if (Math.abs(dPos.x) === Math.abs(dPos.y)) {
+                        this.data = {dir:{x:Math.sign(dPos.x), y:Math.sign(dPos.y)}, remaining: Math.abs(dPos.x)};
+                    }
+                    //Move away
+                    else {
+                        let modX = Math.sign(dPos.x), modY = Math.sign(dPos.y);
+                        if (modX === 0) {
+                            modX = Math.random()<.5?-1:1
+                        }
+                        if (modY === 0) {
+                            modY = Math.random()<.5?-1:1
+                        }
+                        this.data = {dir:{x:-modX, y:-modY}, remaining:Math.floor(Math.random()*ROOM_SIZE)};
+                    }
+                }
+                if (this.data.remaining-- <= 0) {
+                    return false;
+                }
+                else {
+                    return moveEnemy(this, addPos(this.pos, this.data.dir));
+                }
+            }
+        };
+    }
+
     const makeFireballCombo = function() {
         return {
             moves: [{x:-1, y:0}, {x:1, y:0}, {x:0, y:-1}],
-            color: COLOR_INDICATOR_P,
             getThreat : function(current) {
-                let threat = [];
-                for (let i = 0; i < GRID_SIZE; ++i) {
-                    let pos = addPos(playerPos, {x:0, y:-i});
-                    if (!oobm(pos)) {
-                        threat.push(pos);
-                    }
-                    else {
-                        break;
-                    }
-                }
-                return threat;
+                return getThreatRay(playerPos, {x:0, y:-1});
             },
             doMove : function(current) {
                 if (current.data === null || current.data === undefined) {
@@ -413,7 +566,7 @@ const TKID = ( function () {
                 if (!oobp(newPixel) && !oobm(newPos)) {
                     removeEnemyAt(newPos, true); //Kill enemies at this position
                     PS.alpha(newPixel.x, newPixel.y, 255);
-                    PS.color(newPixel.x, newPixel.y, this.color);
+                    PS.color(newPixel.x, newPixel.y, COLOR_PLAYER);
                     return true;
                 }
                 else {
@@ -421,6 +574,16 @@ const TKID = ( function () {
                 }
             }
         }
+    }
+
+    const getThreatRay = function(start, dir, max=-1) {
+        let threat = [], pos = start;
+        while (max !== 0 && !oobm(pos) && mapData[pos.y][pos.x] !== WALL) {
+            threat.push(pos);
+            pos = addPos(pos, dir);
+            --max;
+        }
+        return threat;
     }
 
     const addEnemy = function(enemy) {
@@ -468,7 +631,7 @@ const TKID = ( function () {
                             let threat = coordsToPixel(threatList[i]);
                             if (!oobp(threat)) {
                                 PS.alpha(threat.x, threat.y, ALPHA_INDICATOR);
-                                PS.color(threat.x, threat.y, COLOR_INDICATOR_E);
+                                PS.color(threat.x, threat.y, enemy.color);
                             }
                         }
                     }
@@ -488,7 +651,7 @@ const TKID = ( function () {
                             let threat = coordsToPixel(threatList[j]);
                             if (!oobp(threat)) {
                                 PS.alpha(threat.x, threat.y, ALPHA_INDICATOR);
-                                PS.color(threat.x, threat.y, COLOR_INDICATOR_P);
+                                PS.color(threat.x, threat.y, COLOR_PLAYER);
                             }
 
                         }
@@ -561,7 +724,7 @@ const TKID = ( function () {
             updateStatusLine();
 
             //Spawn enemy
-            addEnemy(makeRook({x:PS.random(GRID_SIZE - 1), y:PS.random(GRID_SIZE - 1)}));
+            //addEnemy(makeRook({x:PS.random(GRID_SIZE - 1), y:PS.random(GRID_SIZE - 1)}));
 
             PS.audioPlay( "fx_coin8" );
 
@@ -575,10 +738,6 @@ const TKID = ( function () {
         let pixel = coordsToPixel(newPos);
         if (oobp(pixel)) {
             return false; //Stop - went off screen
-        }
-        if (equalPos(newPos, playerPos)) {
-            gameOver();
-            return false; //Stop - game over
         }
         else if (mapData[newPos.y][newPos.x] !== FLOOR) {
             return false; //Stop - cannot move into wall or other enemies
@@ -601,7 +760,13 @@ const TKID = ( function () {
             //PS.debug("x: " + enemy.pos.x + " pixelX: " + pixel.x);
             //PS.debug(" y: " + enemy.pos.y + " pixelY: " + pixel.y);
             //PS.debug("\n");
-            return true;
+            if (equalPos(newPos, playerPos)) {
+                gameOver();
+                return false; //Stop - game over
+            }
+            else {
+                return true;
+            }
         }
     }
 
@@ -676,6 +841,11 @@ const TKID = ( function () {
                         PS.glyph(x,y,enemy.glyph);
                         PS.color(x,y,enemy.color);
                     }
+                    else if (data === EXIT) {
+                        PS.gridPlane(LAYER_ENVIR);
+                        PS.glyph(x,y,GLYPH_EXIT);
+                        PS.color(x,y,COLOR_EXIT);
+                    }
                 }
             }
         }
@@ -707,13 +877,12 @@ const TKID = ( function () {
             PS.alpha(Math.floor(GRID_SIZE/2), Math.floor(GRID_SIZE/2), 200);
             PS.color(Math.floor(GRID_SIZE/2), Math.floor(GRID_SIZE/2), COLOR_PLAYER);
 
-            addEnemy(makeRook({x:1, y:14}));
-            //addEnemy(makeGenericEnemy({x:8, y:1}));
+            enemyList = [makePawnH, makePawnV, makeRook, makeKnight, makeBishop];
+
             playerCombos.push(makeFireballCombo());
 
-            generateMap();
-
             updateStatusLine();
+            generateMap();
             redrawScreen();
         },
         touch : function(x, y, data, options) {
@@ -748,39 +917,43 @@ const TKID = ( function () {
                     playerPos = newPos;
 
                     //Kill enemies at the position
-                    removeEnemyAt(newPos, false);
 
+                    if (mapData[newPos.y][newPos.x] === EXIT) {
+                        score+=LEVEL_POINTS;
+                        generateMap();
+                    } else {
+
+                        removeEnemyAt(newPos, false);
+
+                        //Progress combos
+                        for (let index = 0; index < currentCombos.length; ++index) {
+                            let current = currentCombos[index],
+                                combo = playerCombos[current.index];
+
+                            if (equalPos(combo.moves[current.step], moveDir)) {
+                                ++current.step;
+                            } else {
+                                //PS.debug("Fail");
+                                currentCombos.splice(index--, 1);
+                            }
+                        }
+                        //Add to combos
+                        for (let index = 0; index < playerCombos.length; ++index) {
+                            let combo = playerCombos[index];
+                            if (equalPos(moveDir, combo.moves[0])) {
+                                currentCombos.push({
+                                    index: index,
+                                    step: 1,
+                                    data: null
+                                });
+                                //PS.debug("Success!");
+                            }
+                        }
+
+                        //Let animation take over
+                        playerTurn = false;
+                    }
                     redrawScreen();
-
-                    //Progress combos
-                    for (let index = 0; index < currentCombos.length; ++index) {
-                        let current = currentCombos[index],
-                            combo = playerCombos[current.index];
-
-                        if (equalPos(combo.moves[current.step], moveDir)) {
-                            ++current.step;
-                        }
-                        else {
-                            //PS.debug("Fail");
-                            currentCombos.splice(index--, 1);
-                        }
-                    }
-                    //Add to combos
-                    for (let index = 0; index < playerCombos.length; ++index) {
-                        let combo = playerCombos[index];
-                        if (equalPos(moveDir, combo.moves[0])) {
-                            currentCombos.push({
-                                index:index,
-                                step:1,
-                                data:null
-                            });
-                            //PS.debug("Success!");
-                        }
-                    }
-
-                    //Let animation take over
-                    playerTurn = false;
-
                 } else {
                     //Fail
                 }
