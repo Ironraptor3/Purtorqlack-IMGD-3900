@@ -258,10 +258,11 @@ const TKID = ( function () {
             [lastRoom.c*ROOM_SIZE + Math.floor(Math.random()*ROOM_VAR) + 1] = EXIT;
 
         //Place enemies
+        //TODO This is laggy, perhaps change it around
         enemies = [];
-        for (let roomRow = 1; roomRow < maxDim; ++roomRow) {
-            for (let roomCol = 1; roomCol < maxDim; ++roomCol) {
-                if (visited[roomRow][roomCol] === true) {
+        for (let roomRow = 0; roomRow < maxDim; ++roomRow) {
+            for (let roomCol = 0; roomCol < maxDim; ++roomCol) {
+                if ( (roomRow !== 0 || roomCol !== 0) && visited[roomRow][roomCol] === true) {
                     let numEnemies = Math.floor(Math.random()*(ENEMY_MAX+(level*ENEMY_SCALAR))) + ENEMY_MIN;
                     for (let e = 0; e < numEnemies; ++e) {
                         let spawn = {x:roomCol*ROOM_SIZE+(Math.floor(Math.random()*(ROOM_SIZE-2)))+1,
