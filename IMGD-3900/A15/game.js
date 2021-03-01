@@ -148,7 +148,7 @@ const TKID = ( function () {
 	lock: true,
 	path: "audio/",
         autoplay: true,
-        volume: 0.25,
+        volume: 0.025,
         loop: true,
         onLoad: musicloader
     });
@@ -1060,6 +1060,9 @@ const TKID = ( function () {
           updateStatusLine();
         },
         touch : function(x,y,data,options) {
+		
+	    PS.audioPlayChannel(placement_id);
+		
             lastTouch.x = x;
             lastTouch.y = y;
 
@@ -1196,6 +1199,10 @@ This function doesn't have to do anything. Any value returned is ignored.
 */
 
 PS.touch = function( x, y, data, options ) {
+	
+	if ( gameRunning = false ) {
+		PS.init();
+	}
 
 	TKID.touch(x,y,data,options);	
 };
