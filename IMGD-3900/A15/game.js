@@ -1118,29 +1118,32 @@ PS.init = function (system, options) {
     };
 
 
-    PS.audioLoad("audio/death", {
-
+    PS.audioLoad("death", {
+	path: "audio/",
         onLoad: deathloader,
         fileTypes: ["wav"]
     });
 
-    PS.audioLoad("audio/death_jingle", {
-
+    PS.audioLoad("death_jingle", {
+	path: "audio/",
         onLoad: jingleloader,
         fileTypes: ["wav"]
     });
 
-    PS.audioLoad("audio/enemy_death", {
+    PS.audioLoad("enemy_death", {
+	path: "audio/",
         onLoad: enemyloader,
         fileTypes: ["wav"]
     });
 
-    PS.audioLoad("audio/fireball", {
+    PS.audioLoad("fireball", {
+	path: "audio/",
         onLoad: fireloader,
         fileTypes: ["wav"]
     });
 
-    PS.audioLoad("audio/music", {
+    PS.audioLoad("music", {
+	path: "audio/",
         autoplay: true,
         volume: 0.5,
         loop: true,
@@ -1148,7 +1151,8 @@ PS.init = function (system, options) {
         fileTypes: ["wav"]
     });
 
-    PS.audioLoad("audio/placement", {
+    PS.audioLoad("placement", {
+	path: "audio/",
         onLoad: placementloader,
         fileTypes: ["wav"]
     });
