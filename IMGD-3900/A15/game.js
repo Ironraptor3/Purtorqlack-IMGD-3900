@@ -891,8 +891,6 @@ const TKID = ( function () {
 
     const redrawScreen = function() {
 	    
-	PS.audioPlayChannel( placement_id );
-	    
         let yOffset = Math.floor(playerPos.y - GRID_SIZE / 2 + 1),
             xOffset = Math.floor(playerPos.x - GRID_SIZE / 2 + 1);
 
@@ -999,6 +997,8 @@ const TKID = ( function () {
             }
         },
         release : function(x, y, data, options) {
+		
+		PS.audioPlay( placement_id );
             if (gameRunning && playerTurn) {
                 moves += 1;
                 let drag = {x: x - lastTouch.x, y: y - lastTouch.y};
