@@ -1199,10 +1199,7 @@ This function doesn't have to do anything. Any value returned is ignored.
 */
 
 PS.touch = function( x, y, data, options ) {
-	TKID.touch(x,y,data,options);
-	
-	PS.audioPlayChannel( placement_id );
-	
+	TKID.touch(x,y,data,options);	
 };
 
 /*
