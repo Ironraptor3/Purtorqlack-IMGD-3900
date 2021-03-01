@@ -116,9 +116,9 @@ const TKID = ( function () {
     var musicloader = function( data ) {
        music_id = data.channel;
     };
-	var killloader = function(data) {
-		kill_id = data.channel;
-	};
+    var killloader = function(data) {
+	kill_id = data.channel;
+    };
     var placementloader = function( data ) {
        placement_id = data.channel;
     };
@@ -151,7 +151,7 @@ const TKID = ( function () {
     PS.audioLoad("music", {
 	path: "audio/",
         autoplay: true,
-        volume: 0.5,
+        volume: 0.25,
         loop: true,
         onLoad: musicloader,
         fileTypes: ["wav"]
@@ -805,7 +805,7 @@ const TKID = ( function () {
     const gameOver = function() {
 	    
 	PS.audioPlayChannel( death_id );
-	PS.audioPlayChannel( jingle_id );
+	PS.audioPlayChannel( death_jingle_id );
 	PS.audioStop( music_id);
 	
         gameRunning = false;
