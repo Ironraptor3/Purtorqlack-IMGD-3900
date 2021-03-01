@@ -86,7 +86,76 @@ const TKID = ( function () {
     const ENEMY_MAX = 2;
     const ENEMY_SCALAR = 0.2;
 
-    let tutorial = true;
+    	
+	//------------------------------------------------------------AUDIO---------------------------------------------------------------
+	
+	var death_id = "";
+	var death_jingle_id = "";
+	var enemy_death_id = "";
+	var fireball_id = "";
+	var music_id = "";
+	var placement_id = "";
+
+    //Audio Loaders
+
+    var deathloader = function( data ) {
+       death_id = data.channel;
+    };
+    var jingleloader = function( data ) {
+       death_jingle_id = data.channel;
+    };
+    var enemyloader = function( data ) {
+       enemy_death_id = data.channel;
+    };
+    var fireloader = function( data ) {
+       fireball_id = data.channel;
+    };
+    var musicloader = function( data ) {
+       music_id = data.channel;
+    };
+    var placementloader = function( data ) {
+       placement_id = data.channel;
+    };
+
+
+    PS.audioLoad("death", {
+	path: "audio/",
+        onLoad: deathloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("death_jingle", {
+	path: "audio/",
+        onLoad: jingleloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("enemy_death", {
+	path: "audio/",
+        onLoad: enemyloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("fireball", {
+	path: "audio/",
+        onLoad: fireloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("music", {
+	path: "audio/",
+        autoplay: true,
+        volume: 0.5,
+        loop: true,
+        onLoad: musicloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("placement", {
+	path: "audio/",
+        onLoad: placementloader,
+        fileTypes: ["wav"]
+    });
 
     //Tutorial stuff
 
@@ -1086,76 +1155,7 @@ Any value returned is ignored.
 */
 
 PS.init = function (system, options) {
-	
-	//------------------------------------------------------------AUDIO---------------------------------------------------------------
-	
-	var death_id = "";
-	var death_jingle_id = "";
-	var enemy_death_id = "";
-	var fireball_id = "";
-	var music_id = "";
-	var placement_id = "";
 
-    //Audio Loaders
-
-    var deathloader = function( data ) {
-       death_id = data.channel;
-    };
-    var jingleloader = function( data ) {
-       death_jingle_id = data.channel;
-    };
-    var enemyloader = function( data ) {
-       enemy_death_id = data.channel;
-    };
-    var fireloader = function( data ) {
-       fireball_id = data.channel;
-    };
-    var musicloader = function( data ) {
-       music_id = data.channel;
-    };
-    var placementloader = function( data ) {
-       placement_id = data.channel;
-    };
-
-
-    PS.audioLoad("death", {
-	path: "audio/",
-        onLoad: deathloader,
-        fileTypes: ["wav"]
-    });
-
-    PS.audioLoad("death_jingle", {
-	path: "audio/",
-        onLoad: jingleloader,
-        fileTypes: ["wav"]
-    });
-
-    PS.audioLoad("enemy_death", {
-	path: "audio/",
-        onLoad: enemyloader,
-        fileTypes: ["wav"]
-    });
-
-    PS.audioLoad("fireball", {
-	path: "audio/",
-        onLoad: fireloader,
-        fileTypes: ["wav"]
-    });
-
-    PS.audioLoad("music", {
-	path: "audio/",
-        autoplay: true,
-        volume: 0.5,
-        loop: true,
-        onLoad: musicloader,
-        fileTypes: ["wav"]
-    });
-
-    PS.audioLoad("placement", {
-	path: "audio/",
-        onLoad: placementloader,
-        fileTypes: ["wav"]
-    });
 
     //---------------------------------------*DB*---------------------------------------
 
