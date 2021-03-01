@@ -96,6 +96,7 @@ const TKID = ( function () {
 	var enemy_death_id = "";
 	var fireball_id = "";
 	var music_id = "";
+	var kill_id = "";
 	var placement_id = "";
 
     //Audio Loaders
@@ -115,6 +116,9 @@ const TKID = ( function () {
     var musicloader = function( data ) {
        music_id = data.channel;
     };
+	var killloader = function(data) {
+		kill_id = data.channel;
+	};
     var placementloader = function( data ) {
        placement_id = data.channel;
     };
@@ -158,6 +162,11 @@ const TKID = ( function () {
         onLoad: placementloader,
         fileTypes: ["wav"]
     });
+	
+	PS.audioLoad("kill", {
+		path: "audio/",
+		onLoad: killloader,
+	});
 
     //Tutorial stuff
 
