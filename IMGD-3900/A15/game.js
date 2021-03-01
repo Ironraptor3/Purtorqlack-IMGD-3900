@@ -126,26 +126,22 @@ const TKID = ( function () {
 
     PS.audioLoad("death", {
 	path: "audio/",
-        onLoad: deathloader,
-        fileTypes: ["wav"]
+        onLoad: deathloader
     });
 
     PS.audioLoad("death_jingle", {
 	path: "audio/",
-        onLoad: jingleloader,
-        fileTypes: ["wav"]
+        onLoad: jingleloader
     });
 
     PS.audioLoad("enemy_death", {
 	path: "audio/",
-        onLoad: enemyloader,
-        fileTypes: ["wav"]
+        onLoad: enemyloader
     });
 
     PS.audioLoad("fireball", {
 	path: "audio/",
-        onLoad: fireloader,
-        fileTypes: ["wav"]
+        onLoad: fireloader
     });
 
     PS.audioLoad("music", {
@@ -153,20 +149,17 @@ const TKID = ( function () {
         autoplay: true,
         volume: 0.02,
         loop: true,
-        onLoad: musicloader,
-        fileTypes: ["wav"]
+        onLoad: musicloader
     });
 
     PS.audioLoad("placement", {
 	path: "audio/",
-        onLoad: placementloader,
-        fileTypes: ["wav"]
+        onLoad: placementloader
     });
 	
 	PS.audioLoad("kill", {
 		path: "audio/",
-		onLoad: killloader,
-		fileTypes:["wav"]
+		onLoad: killloader
 	});
 
     //Tutorial stuff
