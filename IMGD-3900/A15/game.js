@@ -151,7 +151,7 @@ const TKID = ( function () {
     PS.audioLoad("music", {
 	path: "audio/",
         autoplay: true,
-        volume: 0.25,
+        volume: 0.02,
         loop: true,
         onLoad: musicloader,
         fileTypes: ["wav"]
@@ -166,6 +166,7 @@ const TKID = ( function () {
 	PS.audioLoad("kill", {
 		path: "audio/",
 		onLoad: killloader,
+		fileTypes:["wav"]
 	});
 
     //Tutorial stuff
