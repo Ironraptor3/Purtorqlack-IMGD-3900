@@ -96,7 +96,6 @@ const TKID = ( function () {
 	var enemy_death_id = "";
 	var fireball_id = "";
 	var music_id = "";
-	var kill_id = "";
 	var placement_id = "";
 
     //Audio Loaders
@@ -115,9 +114,6 @@ const TKID = ( function () {
     };
     var musicloader = function( data ) {
        music_id = data.channel;
-    };
-    var killloader = function(data) {
-		kill_id = data.channel;
     };
     var placementloader = function( data ) {
         placement_id = data.channel;
@@ -147,7 +143,7 @@ const TKID = ( function () {
     PS.audioLoad("music", {
 	path: "audio/",
         autoplay: true,
-        volume: 0.02,
+        volume: 0.25,
         loop: true,
         onLoad: musicloader
     });
@@ -156,11 +152,6 @@ const TKID = ( function () {
 	path: "audio/",
         onLoad: placementloader
     });
-	
-	PS.audioLoad("kill", {
-		path: "audio/",
-		onLoad: killloader
-	});
 
     //Tutorial stuff
 
@@ -560,7 +551,7 @@ const TKID = ( function () {
                 return threat;
             },
             doMove : function() {
-				PS.audioPlayChannel( placement_id );
+		PS.audioPlayChannel( placement_id );
                 let dPos = subPos(playerPos, this.pos);
                 if (this.data === undefined || this.data === null) {
                     //Decide direction
@@ -848,8 +839,8 @@ const TKID = ( function () {
 
     const removeEnemyAt = function (pos, redraw) {
 
-	PS.audioPlayChannel( kill_id );
-		PS.audioPlayChannel(enemy_death_id);
+
+	PS.audioPlayChannel(enemy_death_id);
 
         let enemyIndex = mapData[pos.y][pos.x];
 
