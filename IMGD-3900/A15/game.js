@@ -117,10 +117,10 @@ const TKID = ( function () {
        music_id = data.channel;
     };
     var killloader = function(data) {
-	kill_id = data.channel;
+		kill_id = data.channel;
     };
     var placementloader = function( data ) {
-       placement_id = data.channel;
+        placement_id = data.channel;
     };
 
 
@@ -849,6 +849,7 @@ const TKID = ( function () {
     const removeEnemyAt = function (pos, redraw) {
 
 	PS.audioPlayChannel( kill_id );
+		PS.audioPlayChannel(enemy_death_id);
 
         let enemyIndex = mapData[pos.y][pos.x];
 
@@ -1199,9 +1200,9 @@ This function doesn't have to do anything. Any value returned is ignored.
 */
 
 PS.touch = function( x, y, data, options ) {
+	PS.audioPlayChannel(placement_id);
 	TKID.touch(x,y,data,options);	
 };
-
 /*
 PS.release ( x, y, data, options )
 Called when the left mouse button is released, or when a touch is lifted, over bead(x, y).
