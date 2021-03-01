@@ -1094,7 +1094,7 @@ PS.init = function (system, options) {
 	var enemy_death_id = "";
 	var fireball_id = "";
 	var music_id = "";
-	var placement_id = ""
+	var placement_id = "";
 
     //Audio Loaders
 
