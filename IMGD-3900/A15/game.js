@@ -855,7 +855,7 @@ const TKID = ( function () {
 
     const removeEnemyAt = function (pos, redraw) {
 
-	PS.audioPlayChannel( enemy_death_id );
+	PS.audioPlayChannel( kill_id );
 
         let enemyIndex = mapData[pos.y][pos.x];
 
@@ -881,8 +881,6 @@ const TKID = ( function () {
     }
 
     const moveEnemy = function(enemy, newPos) {
-	    
-	PS.audioPlayChannel( placement_id );
 	    
         if (oobm(newPos)) {
             return false; //Stop - out of bounds
@@ -1209,6 +1207,9 @@ This function doesn't have to do anything. Any value returned is ignored.
 
 PS.touch = function( x, y, data, options ) {
 	TKID.touch(x,y,data,options);
+	
+	PS.audioPlayChannel( placement_id );
+	
 };
 
 /*
