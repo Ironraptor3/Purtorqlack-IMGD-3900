@@ -156,7 +156,8 @@ const TKID = ( function () {
     PS.audioLoad("placement", {
 	lock: true,
 	path: "audio/",
-        onLoad: placementloader
+        onLoad: placementloader.
+	fileTypes: ["mp3"]
     });
 
     //Tutorial stuff
