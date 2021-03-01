@@ -85,11 +85,13 @@ const TKID = ( function () {
     const ENEMY_MIN = 1;
     const ENEMY_MAX = 2;
     const ENEMY_SCALAR = 0.2;
+	
+    let tutorial = true;
 
     	
-	//------------------------------------------------------------AUDIO---------------------------------------------------------------
+    //------------------------------------------------------------AUDIO---------------------------------------------------------------
 	
-	var death_id = "";
+    var death_id = "";
 	var death_jingle_id = "";
 	var enemy_death_id = "";
 	var fireball_id = "";
@@ -859,8 +861,6 @@ const TKID = ( function () {
 
             //Spawn enemy
             //addEnemy(makeRook({x:PS.random(GRID_SIZE - 1), y:PS.random(GRID_SIZE - 1)}));
-
-            PS.audioPlay( "fx_coin8" );
 
         }
     }
