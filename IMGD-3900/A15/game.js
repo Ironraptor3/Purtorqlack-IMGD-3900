@@ -622,6 +622,9 @@ const TKID = ( function () {
     }
 
     const makeFireball = function(dir) {
+	    
+	PS.audioPlayChannel( fireball_id );
+	    
         return {
             dir: dir,
             pos: addPos(playerPos, {x:0, y:0}),
@@ -720,6 +723,11 @@ const TKID = ( function () {
     }
 
     const gameOver = function() {
+	    
+	PS.audioPlayChannel( death_id );
+	PS.audioPlayChannel( jingle_id );
+	PS.audioStop( music_id);
+	
         gameRunning = false;
         for (let t = 0; t < timers.length; ++t) {
             PS.timerStop(timers[t]);
@@ -761,6 +769,7 @@ const TKID = ( function () {
 
     const removeEnemyAt = function (pos, redraw) {
 
+	PS.audioPlayChannel( enemy_death_id );
 
         let enemyIndex = mapData[pos.y][pos.x];
 
@@ -788,6 +797,9 @@ const TKID = ( function () {
     }
 
     const moveEnemy = function(enemy, newPos) {
+	    
+	PS.audioPlayChannel( placement_id );
+	    
         if (oobm(newPos)) {
             return false; //Stop - out of bounds
         }
@@ -878,6 +890,9 @@ const TKID = ( function () {
     }
 
     const redrawScreen = function() {
+	    
+	PS.audioPlayChannel( placement_id );
+	    
         let yOffset = Math.floor(playerPos.y - GRID_SIZE / 2 + 1),
             xOffset = Math.floor(playerPos.x - GRID_SIZE / 2 + 1);
 
@@ -1072,52 +1087,69 @@ Any value returned is ignored.
 
 PS.init = function (system, options) {
 	
-	 var click_id = "";
+	//------------------------------------------------------------AUDIO---------------------------------------------------------------
+	
+	var death_id = "";
+	var death_jingle_id = "";
+	var enemy_death_id = "";
+	var fireball_id = "";
+	var music_id = "";
+	var placement_id = ""
 
-    //Music
+    //Audio Loaders
 
-    var audioloader = function( data ) {
-       click_id = data.channel;
+    var deathloader = function( data ) {
+       death_id = data.channel;
+    };
+    var jingleloader = function( data ) {
+       death_jingle_id = data.channel;
+    };
+    var enemyloader = function( data ) {
+       enemy_death_id = data.channel;
+    };
+    var fireloader = function( data ) {
+       fireball_id = data.channel;
+    };
+    var musicloader = function( data ) {
+       music_id = data.channel;
+    };
+    var placementloader = function( data ) {
+       placement_id = data.channel;
     };
 
 
     PS.audioLoad("audio/death", {
 
-        onLoad: audioloader,
+        onLoad: deathloader,
         fileTypes: ["wav"]
     });
 
     PS.audioLoad("audio/death_jingle", {
 
-        onLoad: audioloader,
+        onLoad: jingleloader,
         fileTypes: ["wav"]
     });
 
     PS.audioLoad("audio/enemy_death", {
-        onLoad: audioloader,
+        onLoad: enemyloader,
         fileTypes: ["wav"]
     });
 
     PS.audioLoad("audio/fireball", {
-        onLoad: audioloader,
+        onLoad: fireloader,
         fileTypes: ["wav"]
     });
 
-    PS.audioLoad("audio/kill", {
-        onLoad: audioloader,
-        fileTypes: ["wav"]
-    });
-
-    PS.audioLoad("./music", {
+    PS.audioLoad("audio/music", {
         autoplay: true,
         volume: 0.5,
         loop: true,
-        onLoad: audioloader,
+        onLoad: musicloader,
         fileTypes: ["wav"]
     });
 
-    PS.audioLoad("./placement", {
-        onLoad: audioloader,
+    PS.audioLoad("audio/placement", {
+        onLoad: placementloader,
         fileTypes: ["wav"]
     });
 
