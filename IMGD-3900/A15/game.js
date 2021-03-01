@@ -845,9 +845,6 @@ const TKID = ( function () {
 
     const removeEnemyAt = function (pos, redraw) {
 
-
-	PS.audioPlayChannel(enemy_death_id);
-
         let enemyIndex = mapData[pos.y][pos.x];
 
         if (enemyIndex < 0) {
@@ -862,6 +859,8 @@ const TKID = ( function () {
                     PS.glyph(pixel.x, pixel.y, '');
                 }
             }
+		
+	    PS.audioPlayChannel(enemy_death_id);
             score += ENEMY_POINTS;
             updateStatusLine();
 
