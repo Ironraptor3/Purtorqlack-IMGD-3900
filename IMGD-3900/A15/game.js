@@ -1199,10 +1199,6 @@ This function doesn't have to do anything. Any value returned is ignored.
 */
 
 PS.touch = function( x, y, data, options ) {
-	
-	if ( gameRunning = false ) {
-		PS.init();
-	}
 
 	TKID.touch(x,y,data,options);	
 };
