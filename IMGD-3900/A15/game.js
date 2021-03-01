@@ -121,26 +121,31 @@ const TKID = ( function () {
 
 
     PS.audioLoad("death", {
+	lock: true,
 	path: "audio/",
         onLoad: deathloader
     });
 
     PS.audioLoad("death_jingle", {
+	lock: true,
 	path: "audio/",
         onLoad: jingleloader
     });
 
     PS.audioLoad("enemy_death", {
+	lock: true,
 	path: "audio/",
         onLoad: enemyloader
     });
 
     PS.audioLoad("fireball", {
+	lock: true,
 	path: "audio/",
         onLoad: fireloader
     });
 
     PS.audioLoad("music", {
+	lock: true,
 	path: "audio/",
         autoplay: true,
         volume: 0.25,
@@ -149,6 +154,7 @@ const TKID = ( function () {
     });
 
     PS.audioLoad("placement", {
+	lock: true,
 	path: "audio/",
         onLoad: placementloader
     });
@@ -505,7 +511,7 @@ const TKID = ( function () {
             },
             doMove : function() {
 		    
-				PS.audioPlayChannel( placement_id );
+		PS.audioPlayChannel( placement_id );
                 this.adjustDir();
                 let threat = this.getThreat();
                 for (let i = 0; i < threat.length; ++i) {
@@ -598,7 +604,7 @@ const TKID = ( function () {
                 return getKnightMoves(this.pos);
             },
             doMove : function() {
-				PS.audioPlayChannel( placement_id );
+		PS.audioPlayChannel( placement_id );
                 let moves = getKnightMoves(this.pos);
 
                 if (moves.length === 0) {
@@ -662,7 +668,7 @@ const TKID = ( function () {
                 return threat;
             },
             doMove : function() {
-				PS.audioPlayChannel( placement_id );
+		PS.audioPlayChannel( placement_id );
                 let dPos = subPos(playerPos, this.pos);
                 if (this.data === undefined || this.data === null) {
                     //If player on line -> try kill:
@@ -1191,7 +1197,7 @@ This function doesn't have to do anything. Any value returned is ignored.
 */
 
 PS.touch = function( x, y, data, options ) {
-	PS.audioPlayChannel(placement_id);
+
 	TKID.touch(x,y,data,options);	
 };
 /*
