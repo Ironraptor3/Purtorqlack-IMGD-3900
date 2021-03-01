@@ -1067,7 +1067,6 @@ const TKID = ( function () {
         },
         release : function(x, y, data, options) {
 		
-		PS.audioPlay( placement_id );
             if (gameRunning && playerTurn) {
                 moves += 1;
                 let drag = {x: x - lastTouch.x, y: y - lastTouch.y};
