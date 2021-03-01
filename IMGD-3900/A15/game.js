@@ -520,6 +520,8 @@ const TKID = ( function () {
                 return threat;
             },
             doMove : function() {
+		    
+				PS.audioPlayChannel( placement_id );
                 this.adjustDir();
                 let threat = this.getThreat();
                 for (let i = 0; i < threat.length; ++i) {
@@ -565,6 +567,7 @@ const TKID = ( function () {
                 return threat;
             },
             doMove : function() {
+				PS.audioPlayChannel( placement_id );
                 let dPos = subPos(playerPos, this.pos);
                 if (this.data === undefined || this.data === null) {
                     //Decide direction
@@ -611,6 +614,7 @@ const TKID = ( function () {
                 return getKnightMoves(this.pos);
             },
             doMove : function() {
+				PS.audioPlayChannel( placement_id );
                 let moves = getKnightMoves(this.pos);
 
                 if (moves.length === 0) {
@@ -674,6 +678,7 @@ const TKID = ( function () {
                 return threat;
             },
             doMove : function() {
+				PS.audioPlayChannel( placement_id );
                 let dPos = subPos(playerPos, this.pos);
                 if (this.data === undefined || this.data === null) {
                     //If player on line -> try kill:
