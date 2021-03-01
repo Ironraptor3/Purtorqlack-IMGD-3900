@@ -1071,6 +1071,55 @@ Any value returned is ignored.
 */
 
 PS.init = function (system, options) {
+	
+	 var click_id = "";
+
+    //Music
+
+    var audioloader = function( data ) {
+       click_id = data.channel;
+    };
+
+
+    PS.audioLoad("audio/death", {
+
+        onLoad: audioloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("audio/death_jingle", {
+
+        onLoad: audioloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("audio/enemy_death", {
+        onLoad: audioloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("audio/fireball", {
+        onLoad: audioloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("audio/kill", {
+        onLoad: audioloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("./music", {
+        autoplay: true,
+        volume: 0.5,
+        loop: true,
+        onLoad: audioloader,
+        fileTypes: ["wav"]
+    });
+
+    PS.audioLoad("./placement", {
+        onLoad: audioloader,
+        fileTypes: ["wav"]
+    });
 
     //---------------------------------------*DB*---------------------------------------
 
