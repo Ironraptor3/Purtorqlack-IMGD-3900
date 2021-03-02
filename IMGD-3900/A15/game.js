@@ -294,7 +294,7 @@ const TKID = ( function () {
             PS.gridPlane(LAYER_OVERLAY);
             PS.alpha(PS.ALL, PS.ALL, 0);
             //Make shape
-            let maxDim = Math.floor(level * LEVEL_SIZE_SCALAR) + 2;
+            let maxDim = Math.floor((level-tutorialLevels.length) * LEVEL_SIZE_SCALAR) + 2;
             if (maxDim > LEVEL_SIZE_MAX) {
                 maxDim = LEVEL_SIZE_MAX;
             }
@@ -418,7 +418,7 @@ const TKID = ( function () {
             for (let roomRow = 0; roomRow < maxDim; ++roomRow) {
                 for (let roomCol = 0; roomCol < maxDim; ++roomCol) {
                     if ((roomRow !== 0 || roomCol !== 0) && visited[roomRow][roomCol] === true) {
-                        let numEnemies = Math.floor(Math.random() * (ENEMY_MAX + (level * ENEMY_SCALAR))) + ENEMY_MIN;
+                        let numEnemies = Math.floor(Math.random() * (ENEMY_MAX + ( (level-tutorialLevels.length) * ENEMY_SCALAR))) + ENEMY_MIN;
                         for (let e = 0; e < numEnemies; ++e) {
                             let spawn = {
                                 x: roomCol * ROOM_SIZE + (Math.floor(Math.random() * (ROOM_SIZE - 2))) + 1,
@@ -430,6 +430,34 @@ const TKID = ( function () {
                             }
                         }
                     }
+                }
+            }
+
+            //Place powerups
+            let uses = Math.floor(Math.random()*3) + 1;
+            for (let i = 0; i <= uses; ++i) {
+                let placed = false;
+                let sx = Math.floor(Math.random()*mapData.length),
+                    sy = Math.floor(Math.random()*mapData.length),
+                    px = sx, py = sy;
+                do {
+                    if (mapData[py][px] === FLOOR) {
+                        placed = true;
+                        mapData[py][px] = i===uses?POWERUP_MAX:POWER_USE;
+                    }
+                    else {
+                        ++px;
+                        if (px >= mapData.length) {
+                            px = 0;
+                            ++py;
+                            if (py >= mapData.length) {
+                                py = 0;
+                            }
+                        }
+                    }
+                } while (!placed && (px !== sx || py !== sy));
+                if (!placed) {
+                    break;
                 }
             }
 
@@ -652,8 +680,6 @@ const TKID = ( function () {
     }
 
     const makeBishop = function(pos) {
-
-
         return {
             pos:pos,
             color:{r:127, g:0, b:127},
@@ -668,7 +694,7 @@ const TKID = ( function () {
                 return threat;
             },
             doMove : function() {
-		PS.audioPlayChannel( placement_id );
+		        PS.audioPlayChannel( placement_id );
                 let dPos = subPos(playerPos, this.pos);
                 if (this.data === undefined || this.data === null) {
                     //If player on line -> try kill:
@@ -677,14 +703,7 @@ const TKID = ( function () {
                     }
                     //Move towards
                     else {
-                        let modX = Math.sign(dPos.x), modY = Math.sign(dPos.y);
-                        if (modX === 0) {
-                            modX = Math.random()<.5?-1:1
-                        }
-                        if (modY === 0) {
-                            modY = Math.random()<.5?-1:1
-                        }
-                        this.data = {dir:{x:modX, y:modY}, remaining:Math.floor(Math.random()*GRID_SIZE)};
+                        this.data = {dir:{x:Math.random()<.5?-1:1, y:Math.random()<.5?-1:1}, remaining:Math.floor(Math.random()*GRID_SIZE)};
                     }
                 }
                 if (this.data.remaining-- <= 0) {
@@ -984,7 +1003,7 @@ const TKID = ( function () {
             for (let i = 0; i < GRID_SIZE; i++) {
                 for (let j = 0; j < GRID_SIZE; j++) {
 
-                    if ((i + j + playerPos.x + playerPos.y) % 2 == 0) {
+                    if ((i + j + playerPos.x + playerPos.y) % 2 === 0) {
                         PS.color(i, j, COLOR_FLOOR_2);
                     }
 
@@ -1022,10 +1041,14 @@ const TKID = ( function () {
                             PS.color(x, y, COLOR_EXIT);
                         }
                         else if (data === POWERUP_MAX) {
-                            //TODO Hannah
+                            PS.gridPlane(LAYER_ENVIR);
+                            PS.glyph(x,y,0x2191);
+                            PS.color(x,y, COLOR_FIRE);
                         }
                         else if (data === POWER_USE) {
-                            //TODO Hannah
+                            PS.gridPlane(LAYER_ENVIR);
+                            PS.glyph(x,y,'+');
+                            PS.color(x,y, COLOR_FIRE);
                         }
                     }
                 }
@@ -1124,15 +1147,16 @@ const TKID = ( function () {
                             generateMap();
                         } else {
                             if (mapData[newPos.y][newPos.x] === POWER_USE) {
+                                if (currentUse < maxUse) {
+                                    ++currentUse;
+                                    mapData[newPos.y][newPos.x] = FLOOR;
+                                    updateStatusLine();
+                                }
+                            } else if (mapData[newPos.y][newPos.x] === POWERUP_MAX) {
+                                ++maxUse;
                                 ++currentUse;
                                 mapData[newPos.y][newPos.x] = FLOOR;
                                 updateStatusLine();
-                                //TODO sfx
-                            } else if (mapData[newPos.y][newPos.x] === POWERUP_MAX) {
-                                ++maxUse;
-                                mapData[newPos.y][newPos.x] = FLOOR;
-                                updateStatusLine();
-                                //TODO sfx
                             }
                             removeEnemyAt(newPos, false);
 
