@@ -40,6 +40,8 @@ If you don't use JSHint (or are using it with a configuration file), you can saf
 "use strict"; // Do NOT delete this directive!
 
 const GOLD_TOUCH = ( function () {
+    const DB = "purtorqlack";
+    const EMAIL = "himiller";
 
     const GRID_SIZE_H = 16;
     const GRID_SIZE_V = 16;
@@ -320,6 +322,8 @@ const GOLD_TOUCH = ( function () {
         PS.dbEvent(DB, "Gold Collected", goldCollected);
         PS.dbEvent(DB, "Level", level);
         PS.dbEvent(DB, "Game Over", true);
+	    
+	PS.dbSend( DB, EMAIL, { discard : true } );
     }
 
     const isLane = function(x) {
