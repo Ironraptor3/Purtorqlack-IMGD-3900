@@ -110,7 +110,7 @@ const GOLD_TOUCH = ( function () {
 
     const COLOR_OBJ = {food: PS.COLOR_ORANGE, gold:PS.COLOR_YELLOW, poison:{r:200,g:0,b:200}};
     const TICK_UPDATE = 20;
-    const TICK_FALL = 10;
+    const TICK_FALL = 6;
     const TICK_FALL_VARIANCE = 3;
 
     const MAX_HP = 3;
