@@ -520,7 +520,7 @@ PS.init = function (system, options) {
     // NOTE: To disable DB operations during development,
     // change the value of .active to false
     GOLD_TOUCH.init();
-    PS.dbLogin( DB, onLogin, { active : false } );
+    PS.dbLogin( DB, onLogin, { active : true } );
 }
 
 /*
