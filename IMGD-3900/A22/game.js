@@ -175,7 +175,7 @@ const GOLD_TOUCH = ( function () {
         let c3 = {r:0,g:0,b:0}
         for (const prop in c1) {
             c3[prop] = (f)*c1[prop] + (1-f)*c2[prop];
-            PS.debug(c3[prop] + '\n' );
+            //PS.debug(c3[prop] + '\n' );
         }
         return c3;
     }
