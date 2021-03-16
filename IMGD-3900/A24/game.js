@@ -581,7 +581,7 @@ const GOLD_TOUCH = ( function () {
 
             PS.gridPlane(LAYER_BG);
             PS.color(PS.ALL, PS.ALL, {r:140, g:153, b:153});
-	    PS.imageBlit(LOADED_SPRITES[0], 0, 0);
+	    PS.imageBlit(interludeSprite, 0, 0);
             PS.gridPlane(LAYER_SPR);
             PS.alpha(PS.ALL, PS.ALL, 0);
 
