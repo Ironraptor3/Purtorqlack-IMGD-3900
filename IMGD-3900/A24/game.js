@@ -109,44 +109,184 @@ const GOLD_TOUCH = ( function () {
 
     const INTERLUDES = [
         [0,1],
-        [1,1],
+        [2,3],
+        [4,5],
+        [6,7],
+        [8,9],
+        [10,11],
+        [12,13],
+        [14,15],
+        [16,17],
+        [18,19],
+        [20,21],
+        [22,23],
+        [24,25],
         undefined
     ]
     const CHARACTERS = [
+        //Intro -> Level 1 NPCs
         {text: "King! This satyr will starve!!",
             textColor: COLOR_PLAYER,
             color: {r:140, g:70, b:35},
-            pos: {x:4, y: 8},
+            pos: {x:PS.random(32), y: PS.random(32)},
             radius: 1,
             progress: true},
 
         {text:"Hail King Midas!",
             textColor:{r:0, g:0, b:255},
             color:{r:0, g:0, b:255},
-            pos: {x:8, y:4},
+            pos: {x:PS.random(32), y:PS.random(32)},
             radius: 3,
             progress: false},
-	    
-	 {text: "Milord, the kingdom needs funds....",
+
+	    //Level 1-> Level 2 NPCs
+	    {text: "Level 2 NPC text #1 ",
 	    textColor: {r:119, g:220, b:33},
          color: {r:119, g:220, b:33},
-         pos: {x:12, y: 10},
+         pos: {x:PS.random(32), y: PS.random(32)},
 	    radius: 3,
-	    progress: true},
+	    progress: false},
 
-        {text: "I am Lord Dionysis, Midas.",
+        {text: "Level 2 NPC text #2",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:12, y: 10},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+        //Level 2-> Level 3 NPCs
+        {text: "Level 3 NPC text #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
             radius: 3,
             progress: false},
+
+        {text: "Level 3 NPC text #2",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+        //Level 3-> Level 4 NPCs
+        {text: "Level 4 NPC text #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: false},
+
+        {text: "Level 4 NPC text #2",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+        //Level 4-> Level 5 NPCs
+        {text: "Level 5 NPC text #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: false},
+
+        {text: "Level 5 NPC text",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+        //Level 5-> Level 6 NPCs
+        {text: "Level 6 NPC text #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: false},
+
+        {text: "Level 6 NPC text #2",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+        //Level 6-> Level 7 NPCs
+        {text: "Level 7 NPC text #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: false},
+
+        {text: "Level 7 NPC text #2",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+
+        //Level 7-> Level 8 NPCs
+        {text: "Level 8 NPC text #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: false},
+
+        {text: "Level 8 NPC text #2",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+        //Level 8-> Level 9 NPCs
+        {text: "Level 9 NPC text #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: false},
+
+        {text: "Level 9 NPC text #2",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+        //Level 9-> Level 10 NPCs
+        {text: "Level 10 NPC text #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: false},
+
+        {text: "Level 10 NPC text #2",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
+        //Level 10-> Level 11 NPCs (TURN TO GOLD AS MIDAS APPROACHES- NO WORDS)
+        {text: "... #1",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: false},
+
+        {text: "... #2",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:PS.random(32), y: PS.random(32)},
+            radius: 3,
+            progress: true},
     ]
     const SPRITE_HEIGHT = 3;
 
     const COLOR_BG = {r:204, g:77, b:62};
     const COLOR_LANE = {r:73, g:99, b:136};
 
-    const COLOR_OBJ = {food: {r: PS.random(255), g: PS.random(255), b:PS.random(255)}, gold:{r:231, g:167, b:19}, poison:{r:132,g:65,b:166}};
+    const COLOR_OBJ = {food: PS.COLOR_GREEN, gold:{r:231, g:167, b:19}, poison:{r:132,g:65,b:166}};
     const TICK_UPDATE = 20;
     const TICK_FALL = 6;
     const TICK_FALL_VARIANCE = 3;
