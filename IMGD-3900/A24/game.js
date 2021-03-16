@@ -102,10 +102,11 @@ const GOLD_TOUCH = ( function () {
         3,  //Level 10
         1   //Level 11
     ]
-    var interludeId; // WINE SPRITE ID
+
     var interludeSprite;
     var interludeLoader = function ( data ) {
-        interludeId = PS.spriteImage( data );
+        interludeSprite = PS.spriteImage( data );
+	PS.imageBlit(interludeSprite, 0, 0);
     };
 
     const LOADED_SPRITES = [];
@@ -581,7 +582,7 @@ const GOLD_TOUCH = ( function () {
 
             PS.gridPlane(LAYER_BG);
             PS.color(PS.ALL, PS.ALL, {r:140, g:153, b:153});
-	    PS.imageBlit(interludeSprite, 0, 0);
+            //PS.imageBlit(interludeSprite, 0, 0);
             PS.gridPlane(LAYER_SPR);
             PS.alpha(PS.ALL, PS.ALL, 0);
 
