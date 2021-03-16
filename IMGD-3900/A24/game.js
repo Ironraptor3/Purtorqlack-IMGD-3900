@@ -581,6 +581,7 @@ const GOLD_TOUCH = ( function () {
 
             PS.gridPlane(LAYER_BG);
             PS.color(PS.ALL, PS.ALL, {r:140, g:153, b:153});
+	    PS.imageBlit(LOADED_SPRITES[0], 0, 0);
             PS.gridPlane(LAYER_SPR);
             PS.alpha(PS.ALL, PS.ALL, 0);
 
@@ -602,6 +603,8 @@ const GOLD_TOUCH = ( function () {
 
             PS.statusColor(COLOR_PLAYER);
             PS.statusText("Move via click");
+		
+	    
 
             gameState = 1;
             levelRunning = false;
