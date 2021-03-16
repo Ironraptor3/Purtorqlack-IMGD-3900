@@ -534,6 +534,8 @@ const GOLD_TOUCH = ( function () {
 
             interludesprite = PS.imageLoad("sprites/interludebg.png", interloader);
             LOADED_SPRITES.push( interludesprite );
+		
+		console.log(interludeSprite);
 
             startLevel();
         },
