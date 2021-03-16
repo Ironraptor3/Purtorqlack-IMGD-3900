@@ -675,7 +675,7 @@ const GOLD_TOUCH = ( function () {
         init : function() {
             PS.gridSize(GRID_SIZE_H, GRID_SIZE_V);
 
-            interludeSprite = PS.imageLoad( "sprites/interludebg.bmp", interludeLoader);
+            interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
             LOADED_SPRITES.push( interludeSprite );
 
             startLevel();
