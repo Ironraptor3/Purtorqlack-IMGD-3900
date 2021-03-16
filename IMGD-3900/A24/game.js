@@ -118,7 +118,7 @@ const GOLD_TOUCH = ( function () {
     };
 	
     var midasSprite;
-    var midasludeLoader = function ( data ) {
+    var midasLoader = function ( data ) {
         midasSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
     };
