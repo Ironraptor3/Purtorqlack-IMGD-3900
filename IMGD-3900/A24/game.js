@@ -114,15 +114,13 @@ const GOLD_TOUCH = ( function () {
     var satyrSprite;
     var satyrLoader = function ( data ) {
         satyrSprite = PS.spriteImage( data );
-		imageBlit(data, 0, 24);
-	PS.imageBlit(data, 0, 0);
+		PS. imageBlit(data, 0, 24);
     };
 	
     var midasSprite;
     var midasLoader = function ( data ) {
         midasSprite = PS.spriteImage( data );
-		imageBlit(data, 24, 24);
-	PS.imageBlit(data, 0, 0);
+		PS.imageBlit(data, 24, 24);
     };
 	
     var twoSprite;
