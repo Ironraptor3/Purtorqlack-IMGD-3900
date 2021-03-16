@@ -114,12 +114,14 @@ const GOLD_TOUCH = ( function () {
     var satyrSprite;
     var satyrLoader = function ( data ) {
         satyrSprite = PS.spriteImage( data );
+		imageBlit(data, 0, 24);
 	PS.imageBlit(data, 0, 0);
     };
 	
     var midasSprite;
     var midasLoader = function ( data ) {
         midasSprite = PS.spriteImage( data );
+		imageBlit(data, 24, 24);
 	PS.imageBlit(data, 0, 0);
     };
 	
@@ -680,12 +682,12 @@ const GOLD_TOUCH = ( function () {
                 PS.deleteSprite(sprites[i]);
             }
             //TODO temp
-            let spr = PS.spriteSolid(SIZE_LANE, SPRITE_HEIGHT);
-            PS.spriteSolidColor(spr, lerpColor(hunger[i]/MAX_HUNGER, {r:0,g:50,b:200}, {r:200, g:25, b:25}));
-            PS.spriteSolidAlpha(spr, 255);
-            PS.spritePlane(spr, LAYER_SPR);
-            PS.spriteMove(spr, pos[i].x, pos[i].y);
-
+            satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
+            LOADED_SPRITES.push( satyrSprite );
+			
+			midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
+            LOADED_SPRITES.push( midasSprite );
+			
             PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
         }
     }
