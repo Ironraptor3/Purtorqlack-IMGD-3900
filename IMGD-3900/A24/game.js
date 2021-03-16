@@ -56,7 +56,7 @@ const GOLD_TOUCH = ( function () {
     const UT_WIN = 60;
 
     const MESSAGES = [
-        "Both characters must eat",
+        "Drag to Feed Midas & Satyr",
         "Gold increases your score",
         "Avoid consuming too much wine",
         "This is Dionysus speaking, mortal!",
@@ -103,12 +103,6 @@ const GOLD_TOUCH = ( function () {
         1   //Level 11
     ]
 
-    //Load sprites here
-    //TODO
-    const LOADED_SPRITES = [
-
-    ];
-
     const INTERLUDES = [
         [0,1],
         undefined
@@ -126,6 +120,12 @@ const GOLD_TOUCH = ( function () {
             pos: {x:8, y:4},
             radius: 3,
             progress: false}
+	    
+	 {text: "Milord, the kingdom needs funds....",
+	    textColor: {r:119, g:220, b:33},
+	    pos: {x:12, y: 10},
+	    radius: 3,
+	    progress: false }
     ]
     const SPRITE_HEIGHT = 3;
 
