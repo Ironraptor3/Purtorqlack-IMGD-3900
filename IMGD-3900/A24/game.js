@@ -533,11 +533,6 @@ const GOLD_TOUCH = ( function () {
             PS.gridSize(GRID_SIZE_H, GRID_SIZE_V);
 
             startLevel();
-		
-            interludesprite = PS.imageLoad("sprites/interludebg.png", interloader);
-            LOADED_SPRITES.push( interludesprite );
-		
-	    console.log(interludeSprite);
         },
         onLogin : function() {
             gameState = 1;
