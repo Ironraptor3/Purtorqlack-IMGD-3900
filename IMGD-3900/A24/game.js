@@ -103,13 +103,6 @@ const GOLD_TOUCH = ( function () {
         1   //Level 11
     ]
 
-    var interludesprite;
-    var interloader = function(data) {
-        interludesprite = PS.spriteImage(data);
-        PS.spritePlane(interludesprite, LAYER_SPR);
-        PS.spriteMove(interludesprite, 0, 0);
-    }
-
     const LOADED_SPRITES = [
 
     ]
