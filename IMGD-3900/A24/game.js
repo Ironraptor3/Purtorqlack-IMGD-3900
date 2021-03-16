@@ -102,10 +102,48 @@ const GOLD_TOUCH = ( function () {
         3,  //Level 10
         1   //Level 11
     ]
+    
+    //---------------------------------------------------------IMAGE LOADERS--------------------------------------------------------------------
 
     var interludeSprite;
     var interludeLoader = function ( data ) {
         interludeSprite = PS.spriteImage( data );
+	PS.imageBlit(data, 0, 0);
+    };
+
+    var satyrSprite;
+    var satyrLoader = function ( data ) {
+        satyrSprite = PS.spriteImage( data );
+	PS.imageBlit(data, 0, 0);
+    };
+	
+    var midasSprite;
+    var midasludeLoader = function ( data ) {
+        midasSprite = PS.spriteImage( data );
+	PS.imageBlit(data, 0, 0);
+    };
+	
+    var twoSprite;
+    var twoLoader = function ( data ) {
+        twoSprite = PS.spriteImage( data );
+	PS.imageBlit(data, 0, 0);
+    };
+	
+	var threeSprite;
+    var threeLoader = function ( data ) {
+        threeSprite = PS.spriteImage( data );
+	PS.imageBlit(data, 0, 0);
+    };
+	
+	var fourSprite;
+    var fourLoader = function ( data ) {
+        fourSprite = PS.spriteImage( data );
+	PS.imageBlit(data, 0, 0);
+    };
+	
+	var fiveSprite;
+    var fiveLoader = function ( data ) {
+        fiveSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
     };
 
@@ -582,7 +620,6 @@ const GOLD_TOUCH = ( function () {
 
             PS.gridPlane(LAYER_BG);
             PS.color(PS.ALL, PS.ALL, {r:140, g:153, b:153});
-            //PS.imageBlit(interludeSprite, 0, 0);
             PS.gridPlane(LAYER_SPR);
             PS.alpha(PS.ALL, PS.ALL, 0);
 
@@ -603,9 +640,7 @@ const GOLD_TOUCH = ( function () {
             PS.alpha(interludePos.x, interludePos.y, 255);
 
             PS.statusColor(COLOR_PLAYER);
-            PS.statusText("Move via click");
-		
-	    
+            PS.statusText("Move via click");	    
 
             gameState = 1;
             levelRunning = false;
@@ -681,6 +716,24 @@ const GOLD_TOUCH = ( function () {
 
             interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
             LOADED_SPRITES.push( interludeSprite );
+			
+			satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
+            LOADED_SPRITES.push( satyrSprite );
+			
+			midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
+            LOADED_SPRITES.push( midasSprite );
+			
+			twoSprite = PS.imageLoad( "sprites/level2.png", twoLoader);
+            LOADED_SPRITES.push( twoSprite );
+			
+			threeSprite = PS.imageLoad( "sprites/level3.png", threeLoader);
+            LOADED_SPRITES.push( threeSprite );
+			
+			fourSprite = PS.imageLoad( "sprites/level4.png", fourLoader);
+            LOADED_SPRITES.push( fourSprite );
+			
+			fiveSprite = PS.imageLoad( "sprites/level5.png", fiveLoader);
+            LOADED_SPRITES.push( fiveSprite );
 
             startLevel();
         },
