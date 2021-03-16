@@ -716,7 +716,7 @@ const GOLD_TOUCH = ( function () {
 
             interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
             LOADED_SPRITES.push( interludeSprite );
-			
+	/*
 			satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
             LOADED_SPRITES.push( satyrSprite );
 			
@@ -734,7 +734,7 @@ const GOLD_TOUCH = ( function () {
 			
 			fiveSprite = PS.imageLoad( "sprites/level5.png", fiveLoader);
             LOADED_SPRITES.push( fiveSprite );
-
+*/
             startLevel();
         },
         onLogin : function() {
