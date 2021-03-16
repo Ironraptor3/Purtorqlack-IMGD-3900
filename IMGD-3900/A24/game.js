@@ -59,15 +59,15 @@ const GOLD_TOUCH = ( function () {
         "Drag to Feed Midas & Satyr",
         "Gold increases your score",
         "Avoid consuming too much wine",
-        "This is Dionysus speaking, mortal!",
-        "I am god of Hedonism",
-        "Heed my warning-",
-        "Greed is a cruel mistress",
-        "It corrupts the soul",
-        "Consumption will consume you",
-        "A blessing that curses-",
-        "Is that truly your desire?",
-        "The Golden Touch, then.",
+        "Of Course, Lord Dionysus",
+        "Then I have won favor?",
+        "I want.... Power... and Wealth",
+        "All I touch becomes gold",
+        "Surely- This is my wish",
+        "Praise you, Lord Dionysis!",
+        "Tis not greed, just desire",
+        "Quickly, grant me this!",
+        "... I see",
     ];
 
     const COLOR_PULSE = PS.COLOR_WHITE;
@@ -102,10 +102,13 @@ const GOLD_TOUCH = ( function () {
         3,  //Level 10
         1   //Level 11
     ]
+    var interludeId; // WINE SPRITE ID
+    var interludeSprite;
+    var interludeLoader = function ( data ) {
+        interludeId = PS.spriteImage( data );
+    };
 
-    const LOADED_SPRITES = [
-
-    ]
+    const LOADED_SPRITES = [];
 
     const INTERLUDES = [
         [0,1],
@@ -128,14 +131,14 @@ const GOLD_TOUCH = ( function () {
         {text: "King! This satyr will starve!!",
             textColor: COLOR_PLAYER,
             color: {r:140, g:70, b:35},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 1,
             progress: true},
 
         {text:"Hail King Midas!",
             textColor:{r:0, g:0, b:255},
             color:{r:0, g:0, b:255},
-            pos: {x:PS.random(32), y:PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
@@ -143,84 +146,88 @@ const GOLD_TOUCH = ( function () {
 	    {text: "Level 2 NPC text #1 ",
 	    textColor: {r:119, g:220, b:33},
          color: {r:119, g:220, b:33},
-         pos: {x:PS.random(32), y: PS.random(32)},
+         pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
 	    radius: 3,
 	    progress: false},
 
-        {text: "Level 2 NPC text #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "Greetings, Midas. I am Dionysus.",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
         //Level 2-> Level 3 NPCs
         {text: "Level 3 NPC text #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
-        {text: "Level 3 NPC text #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "Thank you for helping him",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
+
         //Level 3-> Level 4 NPCs
         {text: "Level 4 NPC text #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
-        {text: "Level 4 NPC text #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "Fond of Silenus, I am",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
+
         //Level 4-> Level 5 NPCs
         {text: "Level 5 NPC text #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
-        {text: "Level 5 NPC text",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "Name a reward; It's yours",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
+
         //Level 5-> Level 6 NPCs
         {text: "Level 6 NPC text #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
-        {text: "Level 6 NPC text #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "Please be more specific, King",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
+
         //Level 6-> Level 7 NPCs
         {text: "Level 7 NPC text #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
-        {text: "Level 7 NPC text #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "Be wise; Consider your words",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
 
@@ -228,56 +235,58 @@ const GOLD_TOUCH = ( function () {
         {text: "Level 8 NPC text #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
-        {text: "Level 8 NPC text #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "Then I shall grant this",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
+
         //Level 8-> Level 9 NPCs
         {text: "Level 9 NPC text #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
-        {text: "Level 9 NPC text #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "Greed will consume you, Mortal.",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
         //Level 9-> Level 10 NPCs
         {text: "Level 10 NPC text #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
-        {text: "Level 10 NPC text #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+        {text: "As you wish, Milord.",
+            textColor: {r:180, g:74, b:203},
+            color: {r:180, g:74, b:203},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
+
         //Level 10-> Level 11 NPCs (TURN TO GOLD AS MIDAS APPROACHES- NO WORDS)
         {text: "... #1",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
         {text: "... #2",
             textColor: {r:119, g:220, b:33},
             color: {r:119, g:220, b:33},
-            pos: {x:PS.random(32), y: PS.random(32)},
+            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
     ]
@@ -326,7 +335,6 @@ const GOLD_TOUCH = ( function () {
         },
         gold:function(c) {
             //PS.debug("Gold collected");
-            //TODO
             goldCollected +=1;
         },
         poison:function(c) {
@@ -592,7 +600,7 @@ const GOLD_TOUCH = ( function () {
             PS.color(interludePos.x, interludePos.y, COLOR_PLAYER);
             PS.alpha(interludePos.x, interludePos.y, 255);
 
-            PS.statusColor(0x000000);
+            PS.statusColor(COLOR_PLAYER);
             PS.statusText("Move via click");
 
             gameState = 1;
@@ -616,7 +624,7 @@ const GOLD_TOUCH = ( function () {
         gameState = 2;
         levelRunning = false;
 
-        PS.statusColor(0x000000);
+        PS.statusColor(COLOR_PLAYER);
         PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
         updateCharSprites();
     }
@@ -644,8 +652,11 @@ const GOLD_TOUCH = ( function () {
     }
 
     const gameOver = function() {
-        for (let i = 0; i < timers.length; ++i) {
-            PS.timerStop(timers[i]);
+
+        if (timers.length > 0) {
+            for (let i = 0; i < timers.length; ++i) {
+                PS.timerStop(timers[i]);
+            }
         }
         gameState = 0;
 
@@ -663,6 +674,9 @@ const GOLD_TOUCH = ( function () {
     return {
         init : function() {
             PS.gridSize(GRID_SIZE_H, GRID_SIZE_V);
+
+            interludeSprite = PS.imageLoad( "sprites/interludebg.bmp", interludeLoader);
+            LOADED_SPRITES.push( interludeSprite );
 
             startLevel();
         },
