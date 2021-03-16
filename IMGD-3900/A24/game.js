@@ -45,7 +45,7 @@ const GOLD_TOUCH = ( function () {
 
     const GRID_SIZE_H = 32;
     const GRID_SIZE_V = 32;
-    const SIZE_LANE = 6;
+    const SIZE_LANE = 8;
 
     const LAYER_BG = 0;
     const LAYER_SPR = 1;
