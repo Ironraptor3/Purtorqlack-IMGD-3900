@@ -43,9 +43,9 @@ const GOLD_TOUCH = ( function () {
     const DB = "purtorqlack";
     const EMAIL = "himiller";
 
-    const GRID_SIZE_H = 16;
-    const GRID_SIZE_V = 16;
-    const SIZE_LANE = 3;
+    const GRID_SIZE_H = 32;
+    const GRID_SIZE_V = 32;
+    const SIZE_LANE = 6;
 
     const LAYER_BG = 0;
     const LAYER_SPR = 1;
@@ -103,36 +103,58 @@ const GOLD_TOUCH = ( function () {
         1   //Level 11
     ]
 
+    var interludesprite;
+    var interloader = function(data) {
+        interludesprite = PS.spriteImage(data);
+        PS.spritePlane(interludesprite, LAYER_SPR);
+        PS.spriteMove(interludesprite, 0, 0);
+        PS.spriteShow(interludesprite, false);
+    }
+
+    const LOADED_SPRITES = [
+
+    ]
+
     const INTERLUDES = [
         [0,1],
+        [1,1],
         undefined
     ]
     const CHARACTERS = [
-        {text: "Ho! This satyr needs help!",
+        {text: "King! This satyr will starve!!",
             textColor: COLOR_PLAYER,
             color: {r:140, g:70, b:35},
             pos: {x:4, y: 8},
             radius: 1,
             progress: true},
+
         {text:"Hail King Midas!",
             textColor:{r:0, g:0, b:255},
             color:{r:0, g:0, b:255},
             pos: {x:8, y:4},
             radius: 3,
-            progress: false}
+            progress: false},
 	    
 	 {text: "Milord, the kingdom needs funds....",
 	    textColor: {r:119, g:220, b:33},
-	    pos: {x:12, y: 10},
+         color: {r:119, g:220, b:33},
+         pos: {x:12, y: 10},
 	    radius: 3,
-	    progress: false }
+	    progress: true},
+
+        {text: "I am Lord Dionysis, Midas.",
+            textColor: {r:119, g:220, b:33},
+            color: {r:119, g:220, b:33},
+            pos: {x:12, y: 10},
+            radius: 3,
+            progress: false},
     ]
     const SPRITE_HEIGHT = 3;
 
-    const COLOR_BG = PS.COLOR_WHITE;
-    const COLOR_LANE = {r:100, g:100, b:100};
+    const COLOR_BG = {r:204, g:77, b:62};
+    const COLOR_LANE = {r:73, g:99, b:136};
 
-    const COLOR_OBJ = {food: PS.COLOR_ORANGE, gold:PS.COLOR_YELLOW, poison:{r:200,g:0,b:200}};
+    const COLOR_OBJ = {food: {r: PS.random(255), g: PS.random(255), b:PS.random(255)}, gold:{r:231, g:167, b:19}, poison:{r:132,g:65,b:166}};
     const TICK_UPDATE = 20;
     const TICK_FALL = 6;
     const TICK_FALL_VARIANCE = 3;
@@ -268,7 +290,7 @@ const GOLD_TOUCH = ( function () {
             }
             //Spawn new
 
-            const OBJ_SIZE = 2; //TODO
+            const OBJ_SIZE = 2;
 
             for (const property in currentTimer) {
                 if (SPAWNS[level][property] > 0
@@ -418,12 +440,12 @@ const GOLD_TOUCH = ( function () {
             }
 
             PS.gridPlane(LAYER_BG);
-            PS.color(PS.ALL, PS.ALL, PS.COLOR_GREEN);
+            PS.color(PS.ALL, PS.ALL, {r:140, g:153, b:153});
             PS.gridPlane(LAYER_SPR);
             PS.alpha(PS.ALL, PS.ALL, 0);
 
             if (pathmap !== null) {
-                PS.deletePath(pathmap);
+                PS.pathDelete(pathmap);
             }
 
             let img = Array.from({length: GRID_SIZE_V*GRID_SIZE_H}, _ => 1);
@@ -509,6 +531,10 @@ const GOLD_TOUCH = ( function () {
     return {
         init : function() {
             PS.gridSize(GRID_SIZE_H, GRID_SIZE_V);
+
+            interludesprite = PS.imageLoad("sprites/interludebg.png", interloader);
+            LOADED_SPRITES.push( interludesprite );
+
             startLevel();
         },
         onLogin : function() {
@@ -605,8 +631,13 @@ PS.init = function (system, options) {
     // Collect user credentials, init database
     // NOTE: To disable DB operations during development,
     // change the value of .active to false
+
     GOLD_TOUCH.init();
-    PS.dbLogin( DB, onLogin, { active : true } );
+    PS.border(PS.ALL, PS.ALL, 0);
+
+    PS.dbLogin( DB, onLogin, { active : false } );
+
+
 }
 
 /*
