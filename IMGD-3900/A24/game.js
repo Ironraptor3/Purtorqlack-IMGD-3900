@@ -146,6 +146,12 @@ const GOLD_TOUCH = ( function () {
         fiveSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
     };
+	
+    var gameSprite;
+    var gameLoader = function ( data ) {
+        gameSprite = PS.spriteImage( data );
+	PS.imageBlit(data, 0, 0);
+    };
 
     const LOADED_SPRITES = [];
 
@@ -692,6 +698,9 @@ const GOLD_TOUCH = ( function () {
                 PS.color(x, y, isLane(x)?COLOR_LANE:COLOR_BG);
             }
         }
+	    
+	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+            LOADED_SPRITES.push( gameSprite );
 
         gameState = 2;
         levelRunning = false;
