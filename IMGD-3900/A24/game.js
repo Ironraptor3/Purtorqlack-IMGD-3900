@@ -539,6 +539,9 @@ const GOLD_TOUCH = ( function () {
             }
         }
         else if (gameState === 1 && !levelRunning) {
+		
+	    PS.gridPlane(LAYER_SPR);
+		
             pulseState = !pulseState;
 
             let nextPos;
@@ -547,9 +550,7 @@ const GOLD_TOUCH = ( function () {
             }
             else {
                 nextPos = [interludePos.x, interludePos.y];
-            }
-
-            PS.gridPlane(LAYER_SPR);
+            }           
 
             let closest = null, ldsq = -1;
             for (let c = 0; c < INTERLUDES[level].length; ++c) {
@@ -608,6 +609,8 @@ const GOLD_TOUCH = ( function () {
         hunger[1] = MAX_HUNGER;
         hp = MAX_HP;
 
+	PS.gridPlane(LAYER_BG);
+        PS.color(PS.ALL, PS.ALL, {r:143, g:154, b:157});
         PS.gridPlane(LAYER_OBJ);
         PS.alpha(PS.ALL, PS.ALL, 0);
 
@@ -639,11 +642,12 @@ const GOLD_TOUCH = ( function () {
             }
 
 	    //load background image for interlude levels
+		
+		console.log ("level: " + level);
 			
 	    if (level == 1 || level == 2){
 				
 	    interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
-	    PS.spritePlane(interludeSprite, 0);
             LOADED_SPRITES.push( interludeSprite );
 
 	        } else if (level == 3 || level == 4) {
