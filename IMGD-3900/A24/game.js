@@ -902,7 +902,6 @@ const GOLD_TOUCH = ( function () {
             LOADED_SPRITES.push( interludeSprite );
 
             startLevel();
-	    PS.audioPlayChannel( music_level_id );
         },
         onLogin : function() {
             gameState = 1;
