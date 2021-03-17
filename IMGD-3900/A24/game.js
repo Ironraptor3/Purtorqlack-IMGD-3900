@@ -710,7 +710,7 @@ const GOLD_TOUCH = ( function () {
         }
 	    
 	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
-            LOADED_SPRITES.push( gameSprite );
+        LOADED_SPRITES.push( gameSprite );
 
         gameState = 2;
         levelRunning = false;
@@ -738,6 +738,9 @@ const GOLD_TOUCH = ( function () {
 			
 	    midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
             LOADED_SPRITES.push( midasSprite );
+			
+			gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+        LOADED_SPRITES.push( gameSprite );
 			
             PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
         }
