@@ -752,15 +752,16 @@ const GOLD_TOUCH = ( function () {
 		
 	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
         LOADED_SPRITES.push( gameSprite );	
-	    
-	    wine0Sprite = PS.imageLoad( "sprites/wine0.png", wine0Loader);
-            LOADED_SPRITES.push( wine0Sprite );
 		
             satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
             LOADED_SPRITES.push( satyrSprite );
 			
 	    midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
             LOADED_SPRITES.push( midasSprite );
+	    
+	    
+	    wine0Sprite = PS.imageLoad( "sprites/wine0.png", wine0Loader);
+            LOADED_SPRITES.push( wine0Sprite );
 	    
 	    console.log("updated char sprites");
         updateCharSprites();   
