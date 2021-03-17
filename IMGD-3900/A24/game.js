@@ -717,8 +717,7 @@ const GOLD_TOUCH = ( function () {
         PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
         updateCharSprites();
 	    
-	gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
-        LOADED_SPRITES.push( gameSprite );
+	
 
     }
 
@@ -734,7 +733,10 @@ const GOLD_TOUCH = ( function () {
                 PS.deleteSprite(sprites[i]);
             }
 
-	    //Load satyr and midas sprites
+	    //Load bg, satyr and midas sprites		
+            gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+            LOADED_SPRITES.push( gameSprite );
+		
             satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
             LOADED_SPRITES.push( satyrSprite );
 			
