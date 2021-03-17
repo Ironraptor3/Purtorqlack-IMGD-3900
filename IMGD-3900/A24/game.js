@@ -345,7 +345,7 @@ const GOLD_TOUCH = ( function () {
             radius: 3,
             progress: true},
     ]
-    const SPRITE_HEIGHT = 3;
+    const SPRITE_HEIGHT = 8;
 
     const COLOR_OBJ = {food: PS.COLOR_GREEN, gold:{r:231, g:167, b:19}, poison:{r:132,g:65,b:166}};
     const TICK_UPDATE = 20;
@@ -642,36 +642,36 @@ const GOLD_TOUCH = ( function () {
 	 	
 
 			//load background image for interlude levels
-	/*		
-	    if (level == 2){
+			
+	    if (level === 2){
 				
 	    interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
             LOADED_SPRITES.push( interludeSprite );
 
-	        } else if (level == 3 || level == 4) {
+	        } else if (level === 3 || level === 4) {
 				
 			twoSprite = PS.imageLoad( "sprites/level2.png", twoLoader);
             LOADED_SPRITES.push( twoSprite );
 		    
-		    } else if (level == 5 || level == 6) {
+		    } else if (level === 5 || level === 6) {
 				
 		    threeSprite = PS.imageLoad( "sprites/level3.png", threeLoader);
             LOADED_SPRITES.push( threeSprite );
 				
-			} else if (level == 8 || level == 7) {
+			} else if (level === 8 || level === 7) {
 				
 			fourSprite = PS.imageLoad( "sprites/level4.png", fourLoader);
             LOADED_SPRITES.push( fourSprite );
 				
-			} else if (level == 10 || level == 9) {
+			} else if (level === 10 || level === 9) {
 				
 			fiveSprite = PS.imageLoad( "sprites/level5.png", fiveLoader);
             LOADED_SPRITES.push( fiveSprite );
 				
-			} else if (level == 11) {
+			} else if (level === 11) {
 				
 			}
-		*/
+		
 
             let img = Array.from({length: GRID_SIZE_V*GRID_SIZE_H}, _ => 1);
             for (let c = 0; c < INTERLUDES[level].length; ++c) {
@@ -721,7 +721,7 @@ const GOLD_TOUCH = ( function () {
 
     const updateCharSprites = function() {
 
-        const pos = [{x:0, y:GRID_SIZE_V-SPRITE_HEIGHT}, {x:GRID_SIZE_H-SIZE_LANE, y:GRID_SIZE_V-SPRITE_HEIGHT}];
+        const pos = [{x:0, y:GRID_SIZE_V - SPRITE_HEIGHT}, {x:GRID_SIZE_H - SIZE_LANE, y:GRID_SIZE_V - SPRITE_HEIGHT}];
 
         PS.gridPlane(LAYER_SPR);
         PS.alpha(PS.ALL, PS.ALL, 0);
@@ -731,14 +731,16 @@ const GOLD_TOUCH = ( function () {
                 PS.deleteSprite(sprites[i]);
             }
 
-	    //Load bg, satyr and midas sprites		
-            
+	    //Load bg, satyr and midas sprites		            
 		
             satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
             LOADED_SPRITES.push( satyrSprite );
 			
 	    midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
             LOADED_SPRITES.push( midasSprite );
+		
+            gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+            LOADED_SPRITES.push( gameSprite );
 			
             PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
         }
