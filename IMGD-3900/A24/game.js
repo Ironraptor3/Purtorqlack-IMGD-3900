@@ -626,6 +626,38 @@ const GOLD_TOUCH = ( function () {
             if (pathmap !== null) {
                 PS.pathDelete(pathmap);
             }
+	 	
+
+			//load background image for interlude levels
+			
+	        if (level = 2){
+				
+			interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
+            LOADED_SPRITES.push( interludeSprite );
+
+	        } else if (level = 3 || level = 4) {
+				
+			twoSprite = PS.imageLoad( "sprites/level2.png", twoLoader);
+            LOADED_SPRITES.push( twoSprite );
+		    
+		    } else if (level = 5 || level = 6) {
+				
+		    threeSprite = PS.imageLoad( "sprites/level3.png", threeLoader);
+            LOADED_SPRITES.push( threeSprite );
+				
+			} else if (level = 8 || level = 7) {
+				
+			fourSprite = PS.imageLoad( "sprites/level4.png", fourLoader);
+            LOADED_SPRITES.push( fourSprite );
+				
+			} else if (level = 10 || level = 9) {
+				
+			fiveSprite = PS.imageLoad( "sprites/level5.png", fiveLoader);
+            LOADED_SPRITES.push( fiveSprite );
+				
+			} else if (level = 11) {
+				
+			}
 
             let img = Array.from({length: GRID_SIZE_V*GRID_SIZE_H}, _ => 1);
             for (let c = 0; c < INTERLUDES[level].length; ++c) {
@@ -679,11 +711,12 @@ const GOLD_TOUCH = ( function () {
             if (sprites[i] !== null) {
                 PS.deleteSprite(sprites[i]);
             }
-            //TODO temp
+
+	    //Load satyr and midas sprites
             satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
             LOADED_SPRITES.push( satyrSprite );
 			
-			midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
+	    midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
             LOADED_SPRITES.push( midasSprite );
 			
             PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
@@ -716,25 +749,7 @@ const GOLD_TOUCH = ( function () {
 
             interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
             LOADED_SPRITES.push( interludeSprite );
-	/*
-			satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
-            LOADED_SPRITES.push( satyrSprite );
-			
-			midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
-            LOADED_SPRITES.push( midasSprite );
-			
-			twoSprite = PS.imageLoad( "sprites/level2.png", twoLoader);
-            LOADED_SPRITES.push( twoSprite );
-			
-			threeSprite = PS.imageLoad( "sprites/level3.png", threeLoader);
-            LOADED_SPRITES.push( threeSprite );
-			
-			fourSprite = PS.imageLoad( "sprites/level4.png", fourLoader);
-            LOADED_SPRITES.push( fourSprite );
-			
-			fiveSprite = PS.imageLoad( "sprites/level5.png", fiveLoader);
-            LOADED_SPRITES.push( fiveSprite );
-*/
+
             startLevel();
         },
         onLogin : function() {
