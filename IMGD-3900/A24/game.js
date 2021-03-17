@@ -535,6 +535,7 @@ const GOLD_TOUCH = ( function () {
                         gameOver();
                     }
                 }
+		PS.imageBlit(gameSprite, 0, 0);
                 updateCharSprites();
             }
         }
