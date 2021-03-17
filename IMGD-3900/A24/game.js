@@ -179,6 +179,83 @@ const GOLD_TOUCH = ( function () {
     };
 	
     const LOADED_SPRITES = [];
+	
+    //-----------------------------------------------------SOUND LOADERS-----------------------------------------------------------------------
+	
+	var food_id = "";
+	var step_id = "";
+	var gold_id = "";
+	var level_complete_id = "";
+	var music_level_id = "";
+	var music_temple_id = "";
+	var wine_id = "";
+
+    var foodSoundLoader = function( data ) {
+       food_id = data.channel;
+    };
+    var stepSoundLoader = function( data ) {
+       step_id = data.channel;
+    };
+    var goldSoundLoader = function( data ) {
+       gold_id = data.channel;
+    };
+    var levelCompSoundLoader = function( data ) {
+       level_complete_id = data.channel;
+    };
+    var musicLevelLoader = function( data ) {
+       music_level_id = data.channel;
+    };
+    var musicTempleLoader = function( data ) {
+       music_temple_id = data.channel;
+    };
+    var wineSoundLoader = function( data ) {
+        wine_id = data.channel;
+    };
+	
+   PS.audioLoad("food_pickup", {
+	lock: true,
+	path: "sounds/",
+        onLoad: foodSoundLoader
+    });
+
+    PS.audioLoad("footstep", {
+	lock: true,
+	path: "sounds/",
+        onLoad: stepSoundLoader
+    });
+	
+    PS.audioLoad("gold_pickup", {
+	lock: true,
+	path: "sounds/",
+        onLoad: goldSoundLoader
+    });
+	
+    PS.audioLoad("level_complete_chime", {
+	lock: true,
+	path: "sounds/",
+        onLoad: levelCompSoundLoader
+    });
+	
+    PS.audioLoad("music_loop", {
+	lock: true,
+	path: "sounds/",
+	loop: true,
+        onLoad: musicLevelLoader
+    });
+	
+    PS.audioLoad("music_temple", {
+	lock: true,
+	path: "sounds/",
+	loop: true,
+	autoplay: true,
+        onLoad: musicTempleLoader
+    });
+	
+    PS.audioLoad("wine_pickup", {
+	lock: true,
+	path: "sounds/",
+        onLoad: wineSoundLoader
+    });
 
     const INTERLUDES = [
         [0,1],
@@ -396,15 +473,22 @@ const GOLD_TOUCH = ( function () {
 
     const FCN_OBJ = {
         food:function(c) {
+
+            PS.audioPlayChannel( food_id );
+		
             //PS.debug("Food collected");
             const index = c?0:1;
             hunger[index]+=HUNGER_RESTORE;
         },
         gold:function(c) {
+	    PS.audioPlayChannel( gold_id );
             //PS.debug("Gold collected");
             goldCollected +=1;
         },
         poison:function(c) {
+
+	    PS.audioPlayChannel( wine_id );
+		
 	    if (--hp == 2) {
 	    wine1Sprite = PS.imageLoad( "sprites/wine1.png", wine1Loader);
             LOADED_SPRITES.push( wine1Sprite );
@@ -651,9 +735,13 @@ const GOLD_TOUCH = ( function () {
 
         if (INTERLUDES[level] === undefined
             || INTERLUDES[level] === null) {
+	    PS.audioStop ( music_temple_id);
+	    PS.audioPlayChannel( music_level_id );
             startGameplay();
-        }
-        else {
+        } else {
+	    PS.audioStop( music_level_id );
+	    PS.audioPlayChannel( music_temple_id );
+
             for (let i = 0; i < sprites.length; ++i) {
                 if (sprites[i] !== null) {
                     PS.deleteSprite(sprites[i]);
