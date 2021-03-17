@@ -239,7 +239,6 @@ const GOLD_TOUCH = ( function () {
     PS.audioLoad("music_loop", {
 	lock: true,
 	path: "sounds/",
-	fileTypes: ["mp3", "wav"],
 	autoplay: true,
 	volume: 0,
 	loop: true,
@@ -740,8 +739,6 @@ const GOLD_TOUCH = ( function () {
 
         if (INTERLUDES[level] === undefined
             || INTERLUDES[level] === null) {
-	    PS.audioFade(music_temple_id, PS.CURRENT, 0, 500);
-	    PS.audioFade(music_level_id, PS.CURRENT, 1, 500);
             startGameplay();
         } else {
 	    PS.audioFade( music_level_id, PS.CURRENT, 0, 500);
@@ -816,7 +813,8 @@ const GOLD_TOUCH = ( function () {
 
     const startGameplay = function() {
 	    
-      PS.audioPlayChannel( music_level_id );
+      PS.audioFade(music_temple_id, PS.CURRENT, 0, 500);
+      PS.audioFade(music_level_id, PS.CURRENT, 1, 500);
       /*  PS.gridPlane(LAYER_SPR);
         PS.fade(PS.ALL, PS.ALL, 0);
         PS.alpha(PS.ALL, PS.ALL, 0) */
