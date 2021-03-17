@@ -535,6 +535,7 @@ const GOLD_TOUCH = ( function () {
                         gameOver();
                     }
                 }
+		console.log("updated char sprites");
                 updateCharSprites();
             }
         }
@@ -610,7 +611,7 @@ const GOLD_TOUCH = ( function () {
         hp = MAX_HP;
 
 	PS.gridPlane(LAYER_BG);
-        PS.color(PS.ALL, PS.ALL, {r:143, g:154, b:157});
+        PS.color(PS.ALL, PS.ALL, {r:225, g:66, b:56}); //143 154 157 grey bg
         PS.gridPlane(LAYER_OBJ);
         PS.alpha(PS.ALL, PS.ALL, 0);
 
@@ -696,9 +697,9 @@ const GOLD_TOUCH = ( function () {
     }
 
     const startGameplay = function() {
-        PS.gridPlane(LAYER_SPR);
+      /*  PS.gridPlane(LAYER_SPR);
         PS.fade(PS.ALL, PS.ALL, 0);
-        PS.alpha(PS.ALL, PS.ALL, 0)
+        PS.alpha(PS.ALL, PS.ALL, 0) */
 
       /*  for (let y = 0; y < GRID_SIZE_V; ++y) {
             for (let x = 0; x < GRID_SIZE_H; ++x) {
@@ -715,7 +716,7 @@ const GOLD_TOUCH = ( function () {
 	    
 	     //Load bg, satyr and midas sprites		
 		
-	PS.gridPlane(LAYER_BG);
+	PS.gridPlane(LAYER_SPR);
 		
 	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
         LOADED_SPRITES.push( gameSprite );	
@@ -726,7 +727,7 @@ const GOLD_TOUCH = ( function () {
 	    midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
             LOADED_SPRITES.push( midasSprite );
 	    
-	    
+	    console.log("updated char sprites");
         updateCharSprites();   
 
     }
