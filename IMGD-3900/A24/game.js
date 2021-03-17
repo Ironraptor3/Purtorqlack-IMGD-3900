@@ -108,20 +108,19 @@ const GOLD_TOUCH = ( function () {
     var interludeSprite;
     var interludeLoader = function ( data ) {
         interludeSprite = PS.spriteImage( data );
+	    PS.spritePlane(data, 0); 
 	PS.imageBlit(data, 0, 0);
     };
 
     var satyrSprite;
     var satyrLoader = function ( data ) {
         satyrSprite = PS.spriteImage( data );
-	PS.spritePlane(data, LAYER_BG); 
 	PS. imageBlit(data, 0, 23);
     };
 	
     var midasSprite;
     var midasLoader = function ( data ) {
         midasSprite = PS.spriteImage( data );
-	PS.spritePlane(data, LAYER_BG); 
 	PS.imageBlit(data, 24, 23);
     };
 	
@@ -161,7 +160,6 @@ const GOLD_TOUCH = ( function () {
     var gameLoader = function ( data ) {
         gameSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
-	PS.spritePlane(data, LAYER_BG);    
 	console.log( "loaded game sprite");
     };
 
