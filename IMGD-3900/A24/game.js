@@ -245,6 +245,7 @@ const GOLD_TOUCH = ( function () {
 	
     PS.audioLoad("music_temple", {
 	lock: true,
+	filetypes: ["mp3", "wav"],
 	path: "sounds/",
 	loop: true,
         onLoad: musicTempleLoader
