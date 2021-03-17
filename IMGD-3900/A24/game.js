@@ -703,20 +703,21 @@ const GOLD_TOUCH = ( function () {
 
         PS.gridPlane(LAYER_BG);
         PS.alpha(PS.ALL, PS.ALL, 255);
-        for (let y = 0; y < GRID_SIZE_V; ++y) {
+      /*  for (let y = 0; y < GRID_SIZE_V; ++y) {
             for (let x = 0; x < GRID_SIZE_H; ++x) {
                 PS.color(x, y, isLane(x)?COLOR_LANE:COLOR_BG);
             }
-        }
+        } */
 	    
+	gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+        LOADED_SPRITES.push( gameSprite );
 	
         gameState = 2;
         levelRunning = false;
 
         PS.statusColor(COLOR_PLAYER);
         PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
-        updateCharSprites();
-	    
+        updateCharSprites();   
 	
 
     }
@@ -734,8 +735,7 @@ const GOLD_TOUCH = ( function () {
             }
 
 	    //Load bg, satyr and midas sprites		
-            gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
-            LOADED_SPRITES.push( gameSprite );
+            
 		
             satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
             LOADED_SPRITES.push( satyrSprite );
