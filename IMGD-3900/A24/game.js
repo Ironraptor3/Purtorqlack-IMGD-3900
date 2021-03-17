@@ -159,7 +159,7 @@ const GOLD_TOUCH = ( function () {
     var gameLoader = function ( data ) {
         gameSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
-	PS.spritePlane(data, 0);    
+	PS.spritePlane(data, 1);    
 	console.log( "loaded game sprite");
     };
 
