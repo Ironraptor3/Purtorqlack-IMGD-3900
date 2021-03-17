@@ -637,14 +637,10 @@ const GOLD_TOUCH = ( function () {
             if (pathmap !== null) {
                 PS.pathDelete(pathmap);
             }
-	 	
-	    interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
-	    PS.spritePlane(interludeSprite, 0);
-            LOADED_SPRITES.push( interludeSprite );
 
 	    //load background image for interlude levels
 			
-	    if level == 1 || level == 2){
+	    if (level == 1 || level == 2){
 				
 	    interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
 	    PS.spritePlane(interludeSprite, 0);
@@ -768,8 +764,9 @@ const GOLD_TOUCH = ( function () {
         init : function() {
             PS.gridSize(GRID_SIZE_H, GRID_SIZE_V);
 
-         /*   interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
-            LOADED_SPRITES.push( interludeSprite ); */
+            interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
+	    PS.spritePlane(interludeSprite, 0);
+            LOADED_SPRITES.push( interludeSprite );
 
             startLevel();
         },
