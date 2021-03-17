@@ -549,7 +549,7 @@ const GOLD_TOUCH = ( function () {
                 nextPos = [interludePos.x, interludePos.y];
             }
 
-            PS.gridPlane(LAYER_OBJ);
+            PS.gridPlane(LAYER_SPR);
 
             let closest = null, ldsq = -1;
             for (let c = 0; c < INTERLUDES[level].length; ++c) {
@@ -728,7 +728,10 @@ const GOLD_TOUCH = ( function () {
                 PS.deleteSprite(sprites[i]);
             }
 
-	    //Load bg, satyr and midas sprites		            
+	    //Load bg, satyr and midas sprites		
+		
+	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+        LOADED_SPRITES.push( gameSprite );	
 		
             satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
             LOADED_SPRITES.push( satyrSprite );
