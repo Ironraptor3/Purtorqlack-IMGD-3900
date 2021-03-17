@@ -631,8 +631,6 @@ const GOLD_TOUCH = ( function () {
                 }
             }
 
-            PS.gridPlane(LAYER_BG);
-            PS.color(PS.ALL, PS.ALL, {r:140, g:153, b:153});
             PS.gridPlane(LAYER_SPR);
             PS.alpha(PS.ALL, PS.ALL, 0);
 
@@ -643,33 +641,33 @@ const GOLD_TOUCH = ( function () {
 
 			//load background image for interlude levels
 			
-	    if (level === 2){
+	    if (level == 2){
 				
 	    interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
             LOADED_SPRITES.push( interludeSprite );
 
-	        } else if (level === 3 || level === 4) {
+	        } else if (level == 3 || level == 4) {
 				
 			twoSprite = PS.imageLoad( "sprites/level2.png", twoLoader);
             LOADED_SPRITES.push( twoSprite );
 		    
-		    } else if (level === 5 || level === 6) {
+		    } else if (level == 5 || level == 6) {
 				
 		    threeSprite = PS.imageLoad( "sprites/level3.png", threeLoader);
             LOADED_SPRITES.push( threeSprite );
 				
-			} else if (level === 8 || level === 7) {
+			} else if (level == 8 || level == 7) {
 				
 			fourSprite = PS.imageLoad( "sprites/level4.png", fourLoader);
             LOADED_SPRITES.push( fourSprite );
 				
-			} else if (level === 10 || level === 9) {
+			} else if (level == 10 || level == 9) {
 				
 			fiveSprite = PS.imageLoad( "sprites/level5.png", fiveLoader);
             LOADED_SPRITES.push( fiveSprite );
 				
-			} else if (level === 11) {
-				
+			} else if (level == 11) {
+				PS.color (PS.ALL, PS.ALL, {r:220, g:220, b:40});
 			}
 		
 
