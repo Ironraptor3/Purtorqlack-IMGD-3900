@@ -369,14 +369,14 @@ const GOLD_TOUCH = ( function () {
         {text: "How will you proceed?",
             textColor: {r:108, g:83, b:126},
             color: {r:108, g:83, b:126},
-            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
+            pos: {x:10, y: 12},
             radius: 3,
             progress: false},
 
         {text: "Be wise; Consider your words",
             textColor: {r:180, g:74, b:203},
             color: {r:180, g:74, b:203},
-            pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
+            pos: {x:15, y: 9},
             radius: 1,
             progress: true},
 
