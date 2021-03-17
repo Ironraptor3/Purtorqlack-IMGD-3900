@@ -159,7 +159,7 @@ const GOLD_TOUCH = ( function () {
     var gameLoader = function ( data ) {
         gameSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
-	    
+	PS.spritePlane(data, 0);    
 	console.log( "loaded game sprite");
     };
 
@@ -535,7 +535,6 @@ const GOLD_TOUCH = ( function () {
                         gameOver();
                     }
                 }
-		PS.imageBlit(gameSprite, 0, 0);
                 updateCharSprites();
             }
         }
@@ -623,6 +622,8 @@ const GOLD_TOUCH = ( function () {
 
         if (INTERLUDES[level] === undefined
             || INTERLUDES[level] === null) {
+	gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+        LOADED_SPRITES.push( gameSprite );	
             startGameplay();
         }
         else {
@@ -713,9 +714,6 @@ const GOLD_TOUCH = ( function () {
         PS.statusColor(COLOR_PLAYER);
         PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
         updateCharSprites();   
-	
-	gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
-        LOADED_SPRITES.push( gameSprite );	
 
     }
 
