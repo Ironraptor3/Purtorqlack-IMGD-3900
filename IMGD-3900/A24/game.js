@@ -638,12 +638,16 @@ const GOLD_TOUCH = ( function () {
                 PS.pathDelete(pathmap);
             }
 	 	
+	    interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
+	    PS.spritePlane(interludeSprite, 0);
+            LOADED_SPRITES.push( interludeSprite );
 
 	    //load background image for interlude levels
 			
-	    if (level == 0 || level == 1 || level == 2){
+	    if level == 1 || level == 2){
 				
 	    interludeSprite = PS.imageLoad( "sprites/interludebg.png", interludeLoader);
+	    PS.spritePlane(interludeSprite, 0);
             LOADED_SPRITES.push( interludeSprite );
 
 	        } else if (level == 3 || level == 4) {
