@@ -730,6 +730,8 @@ const GOLD_TOUCH = ( function () {
 
 	    //Load bg, satyr and midas sprites		
 		
+		PS.gridPlane(LAYER_BG);
+		
 	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
         LOADED_SPRITES.push( gameSprite );	
 		
