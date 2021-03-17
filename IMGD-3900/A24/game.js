@@ -237,7 +237,6 @@ const GOLD_TOUCH = ( function () {
     });
 	
     PS.audioLoad("music_loop", {
-	lock: true,
 	path: "sounds/",
 	autoplay: true,
 	volume: 0,
@@ -246,7 +245,6 @@ const GOLD_TOUCH = ( function () {
     });
 	
     PS.audioLoad("music_temple", {
-	lock: true,
 	filetypes: ["mp3", "wav"],
 	path: "sounds/",
 	autoplay: true,
@@ -741,9 +739,11 @@ const GOLD_TOUCH = ( function () {
             || INTERLUDES[level] === null) {
             startGameplay();
         } else {
-	    PS.audioFade( music_level_id, PS.CURRENT, 0, 500);
+	    PS.audioFade( music_level_id, PS.CURRENT, 0);
 	    PS.audioPlayChannel (level_complete_id);
-	    PS.audioFade( music_temple_id, PS.CURRENT, 1, 500);
+	    PS.audioFade( music_temple_id, PS.CURRENT, 1);
+		
+		console.log ("swapped");
 
             for (let i = 0; i < sprites.length; ++i) {
                 if (sprites[i] !== null) {
@@ -813,8 +813,10 @@ const GOLD_TOUCH = ( function () {
 
     const startGameplay = function() {
 	    
-      PS.audioFade(music_temple_id, PS.CURRENT, 0, 500);
-      PS.audioFade(music_level_id, PS.CURRENT, 1, 500);
+      PS.audioFade(music_temple_id, PS.CURRENT, 0);
+      PS.audioFade(music_level_id, PS.CURRENT, 1);
+	    
+	    console.log ("swapped");
       /*  PS.gridPlane(LAYER_SPR);
         PS.fade(PS.ALL, PS.ALL, 0);
         PS.alpha(PS.ALL, PS.ALL, 0) */
@@ -997,6 +999,9 @@ PS.init = function (system, options) {
     // change the value of .active to false
 
     GOLD_TOUCH.init();
+	
+    PS.audioPlayChannel( music_level_id );
+		
     PS.border(PS.ALL, PS.ALL, 0);
 
     PS.dbLogin( DB, onLogin, { active : false } );
