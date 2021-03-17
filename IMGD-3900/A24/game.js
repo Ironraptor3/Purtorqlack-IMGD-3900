@@ -355,15 +355,15 @@ const GOLD_TOUCH = ( function () {
 
         //Level 10-> Level 11 NPCs (TURN TO GOLD AS MIDAS APPROACHES- NO WORDS)
         {text: "... #1",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
+            textColor: {r:240, g:197, b:20},
+            color: {r:240, g:197, b:20},
             pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: false},
 
         {text: "... #2",
-            textColor: {r:119, g:220, b:33},
-            color: {r:119, g:220, b:33},
+            textColor: {r:240, g:197, b:20},
+            color: {r:240, g:197, b:20},
             pos: {x:PS.random(GRID_SIZE_H), y: PS.random(GRID_SIZE_V)},
             radius: 3,
             progress: true},
@@ -569,7 +569,7 @@ const GOLD_TOUCH = ( function () {
             }
 		
 		if (level > 10) {
-		     touchState = true;
+		     touchState = gold;
 		}
         }
         else if (gameState === 1 && !levelRunning) {
@@ -704,7 +704,7 @@ const GOLD_TOUCH = ( function () {
             LOADED_SPRITES.push( fiveSprite );
 				
 			} else if (level == 11) {
-				PS.color (PS.ALL, PS.ALL, {r:220, g:220, b:40});
+				PS.color (PS.ALL, PS.ALL, {r:188, g:163, b: 59});
 			}
 		
 
