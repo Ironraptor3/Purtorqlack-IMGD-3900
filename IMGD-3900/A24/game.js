@@ -739,6 +739,7 @@ const GOLD_TOUCH = ( function () {
             startGameplay();
         } else {
 	    PS.audioStop( music_level_id );
+	    PS.audioPlayChannel (level_complete_id);
 	    PS.audioPlayChannel( music_temple_id );
 
             for (let i = 0; i < sprites.length; ++i) {
