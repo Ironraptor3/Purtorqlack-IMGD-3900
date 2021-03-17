@@ -160,9 +160,32 @@ const GOLD_TOUCH = ( function () {
     var gameLoader = function ( data ) {
         gameSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
-	console.log( "loaded game sprite");
+    };
+	
+    var wine0Sprite;
+    var wine0Loader = function ( data ) {
+        wine0Sprite = PS.spriteImage( data );
+	PS.imageBlit(data, 24, 13);
     };
 
+    var wine1Sprite;
+    var wine1Loader = function ( data ) {
+        wine1Sprite = PS.spriteImage( data );
+	PS.imageBlit(data, 24, 13);
+    };
+	
+    var wine2Sprite;
+    var wine2Loader = function ( data ) {
+        wine2Sprite = PS.spriteImage( data );
+	PS.imageBlit(data, 24, 13);
+    };
+	
+    var wine3Sprite;
+    var wine3Loader = function ( data ) {
+        wine3Sprite = PS.spriteImage( data );
+	PS.imageBlit(data, 24, 13);
+    };
+	
     const LOADED_SPRITES = [];
 
     const INTERLUDES = [
@@ -347,7 +370,7 @@ const GOLD_TOUCH = ( function () {
     ]
     const SPRITE_HEIGHT = 1;
 
-    const COLOR_OBJ = {food: PS.COLOR_GREEN, gold:{r:231, g:167, b:19}, poison:{r:132,g:65,b:166}};
+    const COLOR_OBJ = {food: {r:165, g:234, b:227}, gold:{r:231, g:167, b:19}, poison:{r:132,g:65,b:166}};
     const TICK_UPDATE = 20;
     const TICK_FALL = 6;
     const TICK_FALL_VARIANCE = 3;
@@ -535,9 +558,12 @@ const GOLD_TOUCH = ( function () {
                         gameOver();
                     }
                 }
-		console.log("updated char sprites");
                 updateCharSprites();
             }
+		
+		if (level > 10) {
+		     touchState = true;
+		}
         }
         else if (gameState === 1 && !levelRunning) {
 		
@@ -642,9 +668,8 @@ const GOLD_TOUCH = ( function () {
                 PS.pathDelete(pathmap);
             }
 
-	    //load background image for interlude levels
+	    //load background image for interlude levels	
 		
-		console.log ("level: " + level);
 			
 	    if (level == 1 || level == 2){
 				
@@ -711,7 +736,7 @@ const GOLD_TOUCH = ( function () {
         levelRunning = false;
 
         PS.statusColor(COLOR_PLAYER);
-        PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
+        PS.statusText(MESSAGES[level] + " [Gold: " + goldCollected + "]");
 	    
 	    
 	     //Load bg, satyr and midas sprites		
@@ -744,7 +769,7 @@ const GOLD_TOUCH = ( function () {
                 PS.deleteSprite(sprites[i]);
             }
 			
-            PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
+            PS.statusText(MESSAGES[level] + " [Gold: " + goldCollected + "]");
         }
     }
 
