@@ -120,37 +120,47 @@ const GOLD_TOUCH = ( function () {
     var midasSprite;
     var midasLoader = function ( data ) {
         midasSprite = PS.spriteImage( data );
-		PS.imageBlit(data, 24, 23);
+	PS.imageBlit(data, 24, 23);
     };
 	
     var twoSprite;
     var twoLoader = function ( data ) {
         twoSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
+	    
+	console.log( "loaded second room");
     };
 	
 	var threeSprite;
     var threeLoader = function ( data ) {
         threeSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
+	    
+	console.log( "loaded third room");
     };
 	
 	var fourSprite;
     var fourLoader = function ( data ) {
         fourSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
+	    
+	console.log( "loaded fourth room");
     };
 	
 	var fiveSprite;
     var fiveLoader = function ( data ) {
         fiveSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
+	    
+	console.log( "loaded fifth room");
     };
 	
     var gameSprite;
     var gameLoader = function ( data ) {
         gameSprite = PS.spriteImage( data );
 	PS.imageBlit(data, 0, 0);
+	    
+	console.log( "loaded game sprite");
     };
 
     const LOADED_SPRITES = [];
