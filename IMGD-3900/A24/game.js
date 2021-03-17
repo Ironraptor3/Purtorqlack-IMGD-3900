@@ -413,8 +413,15 @@ const GOLD_TOUCH = ( function () {
             goldCollected +=1;
         },
         poison:function(c) {
-            if (--hp <= 0) {
-                //PS.debug("Poison collected");
+	    if (--hp == 2) {
+	    wine1Sprite = PS.imageLoad( "sprites/wine1.png", wine1Loader);
+            LOADED_SPRITES.push( wine1Sprite );
+	    } else if (--hp == 1) {
+	    wine2Sprite = PS.imageLoad( "sprites/wine2.png", wine2Loader);
+            LOADED_SPRITES.push( wine2Sprite );
+	    } else if (--hp <= 0) {
+            wine3Sprite = PS.imageLoad( "sprites/wine3.png", wine3Loader);
+            LOADED_SPRITES.push( wine3Sprite );
                 PS.statusText("Drank too much wine");
                 gameOver();
             }
@@ -745,6 +752,9 @@ const GOLD_TOUCH = ( function () {
 		
 	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
         LOADED_SPRITES.push( gameSprite );	
+	    
+	    wine0Sprite = PS.imageLoad( "sprites/wine0.png", wine0Loader);
+            LOADED_SPRITES.push( wine0Sprite );
 		
             satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
             LOADED_SPRITES.push( satyrSprite );
