@@ -247,7 +247,6 @@ const GOLD_TOUCH = ( function () {
 	lock: true,
 	path: "sounds/",
 	loop: true,
-	autoplay: true,
         onLoad: musicTempleLoader
     });
 	
