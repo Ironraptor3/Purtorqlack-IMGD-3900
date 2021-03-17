@@ -345,7 +345,7 @@ const GOLD_TOUCH = ( function () {
             radius: 3,
             progress: true},
     ]
-    const SPRITE_HEIGHT = 8;
+    const SPRITE_HEIGHT = 1;
 
     const COLOR_OBJ = {food: PS.COLOR_GREEN, gold:{r:231, g:167, b:19}, poison:{r:132,g:65,b:166}};
     const TICK_UPDATE = 20;
