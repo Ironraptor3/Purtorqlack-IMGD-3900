@@ -108,7 +108,7 @@ const GOLD_TOUCH = ( function () {
     var interludeSprite;
     var interludeLoader = function ( data ) {
         interludeSprite = PS.spriteImage( data );
-	    PS.spritePlane(data, 0); 
+	    PS.spritePlane(interludeSprite, 0); 
 	PS.imageBlit(data, 0, 0);
     };
 
