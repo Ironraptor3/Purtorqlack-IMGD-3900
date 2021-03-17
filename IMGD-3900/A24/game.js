@@ -549,7 +549,7 @@ const GOLD_TOUCH = ( function () {
                 nextPos = [interludePos.x, interludePos.y];
             }
 
-            PS.gridPlane(LAYER_SPR);
+            PS.gridPlane(LAYER_OBJ);
 
             let closest = null, ldsq = -1;
             for (let c = 0; c < INTERLUDES[level].length; ++c) {
