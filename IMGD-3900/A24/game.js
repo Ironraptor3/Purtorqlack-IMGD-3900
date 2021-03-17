@@ -706,9 +706,6 @@ const GOLD_TOUCH = ( function () {
             }
         } */
 	    
-	gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
-        LOADED_SPRITES.push( gameSprite );
-	
         gameState = 2;
         levelRunning = false;
 
@@ -716,6 +713,8 @@ const GOLD_TOUCH = ( function () {
         PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
         updateCharSprites();   
 	
+	gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+        LOADED_SPRITES.push( gameSprite );	
 
     }
 
