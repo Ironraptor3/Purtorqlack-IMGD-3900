@@ -347,9 +347,6 @@ const GOLD_TOUCH = ( function () {
     ]
     const SPRITE_HEIGHT = 3;
 
-    const COLOR_BG = {r:204, g:77, b:62};
-    const COLOR_LANE = {r:73, g:99, b:136};
-
     const COLOR_OBJ = {food: PS.COLOR_GREEN, gold:{r:231, g:167, b:19}, poison:{r:132,g:65,b:166}};
     const TICK_UPDATE = 20;
     const TICK_FALL = 6;
