@@ -707,11 +707,27 @@ const GOLD_TOUCH = ( function () {
         gameState = 2;
         levelRunning = false;
 	    
-        gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
-        LOADED_SPRITES.push( gameSprite );	
+   /*     gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+        LOADED_SPRITES.push( gameSprite );	*/
 
         PS.statusColor(COLOR_PLAYER);
         PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
+	    
+	    
+	     //Load bg, satyr and midas sprites		
+		
+		PS.gridPlane(LAYER_BG);
+		
+	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
+        LOADED_SPRITES.push( gameSprite );	
+		
+            satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
+            LOADED_SPRITES.push( satyrSprite );
+			
+	    midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
+            LOADED_SPRITES.push( midasSprite );
+	    
+	    
         updateCharSprites();   
 
     }
@@ -727,19 +743,6 @@ const GOLD_TOUCH = ( function () {
             if (sprites[i] !== null) {
                 PS.deleteSprite(sprites[i]);
             }
-
-	    //Load bg, satyr and midas sprites		
-		
-		PS.gridPlane(LAYER_BG);
-		
-	    gameSprite = PS.imageLoad( "sprites/gameplay.png", gameLoader);
-        LOADED_SPRITES.push( gameSprite );	
-		
-            satyrSprite = PS.imageLoad( "sprites/satyr.png", satyrLoader);
-            LOADED_SPRITES.push( satyrSprite );
-			
-	    midasSprite = PS.imageLoad( "sprites/midas.png", midasLoader);
-            LOADED_SPRITES.push( midasSprite );
 			
             PS.statusText(MESSAGES[level] + " [Score: " + goldCollected + "]");
         }
