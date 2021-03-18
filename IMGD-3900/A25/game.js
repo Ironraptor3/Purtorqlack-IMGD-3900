@@ -459,7 +459,7 @@ const GOLD_TOUCH = ( function () {
     let falling = [];
     let currentTimer = {food:0, gold:0, poison:0};
 
-    let level = 0;
+    let level = 6;
     let currentUT = 0;
 
     let touching = -1;
