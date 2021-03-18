@@ -796,6 +796,7 @@ const GOLD_TOUCH = ( function () {
             for (let c = 0; c < INTERLUDES[level].length; ++c) {
                 let character = CHARACTERS[INTERLUDES[level][c]];
                 img[GRID_SIZE_H*character.pos.y+character.pos.x] = 0;
+                PS.debug(character.text + " PosY: " + character.pos.y);
                 PS.color(character.pos.x, character.pos.y, character.color);
                 PS.alpha(character.pos.x, character.pos.y, 255);
             }
