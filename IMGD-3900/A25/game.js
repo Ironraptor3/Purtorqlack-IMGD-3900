@@ -446,7 +446,7 @@ const GOLD_TOUCH = ( function () {
     const TICK_FALL = 6;
     const TICK_FALL_VARIANCE = 3;
 
-    const MAX_HP = 3;
+    const MAX_HP = 4;
 
     let timers = [];
     let gameState = 0;
@@ -671,7 +671,7 @@ const GOLD_TOUCH = ( function () {
                     dx = character.pos.x-nextPos[0], dy = character.pos.y-nextPos[1],
                     distSq = dx*dx+dy*dy;
                 //Pulse character
-                PS.debug(character.text + " PosY: " + character.pos.y);
+                //PS.debug(character.text + " PosY: " + character.pos.y);
                 PS.fade(character.pos.x, character.pos.y, TICK_UPDATE);
                 PS.color(character.pos.x, character.pos.y, fadeColor);
 
@@ -796,7 +796,7 @@ const GOLD_TOUCH = ( function () {
             for (let c = 0; c < INTERLUDES[level].length; ++c) {
                 let character = CHARACTERS[INTERLUDES[level][c]];
                 img[GRID_SIZE_H*character.pos.y+character.pos.x] = 0;
-                PS.debug(character.text + " PosY: " + character.pos.y);
+                //PS.debug(character.text + " PosY: " + character.pos.y);
                 PS.color(character.pos.x, character.pos.y, character.color);
                 PS.alpha(character.pos.x, character.pos.y, 255);
             }
