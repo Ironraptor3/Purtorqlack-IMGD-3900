@@ -881,11 +881,6 @@ const GOLD_TOUCH = ( function () {
         }
         gameState = 0;
 
-        PS.dbEvent(DB, "Gold Collected", goldCollected);
-        PS.dbEvent(DB, "Level", level);
-        PS.dbEvent(DB, "Game Over", true);
-	    
-	PS.dbSend( DB, EMAIL, { discard : true } );
     }
 
     const isLane = function(x) {
