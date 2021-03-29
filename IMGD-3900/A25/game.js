@@ -40,8 +40,6 @@ If you don't use JSHint (or are using it with a configuration file), you can saf
 "use strict"; // Do NOT delete this directive!
 
 const GOLD_TOUCH = ( function () {
-    const DB = "purtorqlack";
-    const EMAIL = "himiller";
 
     const GRID_SIZE_H = 32;
     const GRID_SIZE_V = 32;
@@ -977,24 +975,9 @@ Any value returned is ignored.
 */
 
 PS.init = function (system, options) {
-    //---------------------------------------*DB*---------------------------------------
+ 
 
-    const DB = "purtorqlack";
 
-    let user;
-
-    const onLogin = function ( id, username ) {
-        if ( username === PS.ERROR ) {
-            PS.statusText( "Login failed; aborting." );
-            return; // aborts game startup
-        }
-
-        user = username; // save collected username
-        //PS.statusText( "Hello, " + user + "!" );
-
-        // Final game startup code goes here
-        GOLD_TOUCH.onLogin();
-    };
 
     // Collect user credentials, init database
     // NOTE: To disable DB operations during development,
@@ -1003,10 +986,6 @@ PS.init = function (system, options) {
     GOLD_TOUCH.init();
 		
     PS.border(PS.ALL, PS.ALL, 0);
-
-    PS.dbLogin( DB, onLogin, { active : false } );
-
-
 }
 
 /*
@@ -1149,18 +1128,6 @@ NOTE: This event is generally needed only by applications utilizing networked te
 */
 
 PS.shutdown = function( options ) {
-	// Uncomment the following code line to verify operation:
 
-	// PS.debug( "“Dave. My mind is going. I can feel it.”\n" );
-
-	// Add code here to tidy up when Perlenspiel is about to close.
-
-
-    //----------------------------------------*DB*-------------------------------------------------
-    //Send data if game closes to prevent data loss
-    if ( PS.dbValid( DB ) ) {
-        PS.dbEvent( DB, "shutdown", true );
-        PS.dbSend( DB, EMAIL );
-    }
 };
 
